@@ -28,6 +28,9 @@ npm install
 - Foreign key reference: https://stackoverflow.com/questions/26008555/creating-a-foreign-key-relationship-in-mongoose
 - Conditional required by passing a function: https://stackoverflow.com/questions/67920909/mongoose-conditional-required-field
 - Extracting form data from request body: https://www.xjavascript.com/blog/how-to-get-data-passed-from-a-form-in-express-node-js/
+- Search for phrase in string value of field: https://thecodebuzz.com/mongodb-get-record-document-that-contain-a-string-matching/
+- MongoDB or operator (for find function): https://www.mongodb.com/docs/manual/reference/operator/query/or/?msockid=0dc208bc99586b0f07451b3798cb6acd
 - HTTP status code meanings: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
+- Adding key-value pair to array: https://www.geeksforgeeks.org/javascript/how-to-add-key-value-pair-to-a-javascript-object/
 ### Images
 - Favicon generator: https://favicon.io/favicon-converter/

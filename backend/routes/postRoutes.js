@@ -19,11 +19,28 @@ function isQueryEmpty(query) {
 // return all posts
 router.get('/', async (req, res) => {
     try {
-        const posts = await Post.find().sort({createdAt: -1}); // display in descending order of date created
+        const filter = {}; // to hold query filter values
 
-        if (!isQueryEmpty(req.query)) {
-            // TODO filter
+        // filter by title/description (regex searches for q value anywhere in title/description, case insensitive)
+        if (req.query.q) { // q searched for
+            filter.$or = [
+                { title: {'$regex' : req.query.q, '$options' : 'i' } },
+                { description: {'$regex' : req.query.q, '$options' : 'i' } }
+            ];
         }
+
+        // filter by type of fiber art
+        if (req.query.type) { // type searched for
+            filter.type = req.query.type;
+        }
+
+        // filter by skill level
+        if (req.query.skill) { // skill searched for
+            filter.skill = req.query.skill;
+        }            
+
+        // filter, sort, and retrieve posts
+        const posts = await Post.find(filter).sort({createdAt: -1}); // display in descending order of date created
 
         res.json({ posts });
     } catch (err) {
