@@ -21,6 +21,15 @@ const PostSchema = new mongoose.Schema(
             type: String,
             default: null,
         },
+        skill: {
+            type: String,
+            enum: ['beginner', 'intermediate', 'advanced'],
+            required: true,
+        },
+        creator: {
+            type: String,
+            required: true,
+        },
         image: {
             type: File,
             default: null,
