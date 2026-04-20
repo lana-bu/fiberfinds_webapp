@@ -16,6 +16,7 @@ app.use(express.json()); // built-in body parser
 app.use(cookieParser());
 app.use(setCsrfToken); // set CSRF cookie on every response
 app.use('/api/auth', authRoutes); // no CSRF validation (login/signup)
+// create about page route
 
 const port = process.env.PORT || 3000;
 const url = process.env.MONGO_URL;

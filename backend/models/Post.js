@@ -27,19 +27,19 @@ const PostSchema = new mongoose.Schema(
         },
         uploadType: {
             type: String,
-            enum: ['link', 'file'],
+            enum: ['link', 'file', 'both'],
             required: true,
         },
         link: {
             type: String,
             required: function() { 
-                return this.uploadType === 'link';
+                return this.uploadType === 'link' || 'both';
             }
         },
         file: {
             type: String,
             required: function() { 
-                return this.uploadType === 'file';
+                return this.uploadType === 'file' || 'both';
             }
         },
         ratings: [
