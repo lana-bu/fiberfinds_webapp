@@ -345,12 +345,35 @@ body {
 }
 
 /* search form styling */
-.search-form-field {
-    margin: var(--spacing);
+.search-bar {
+  flex-direction: row;
+  align-items: center;
 }
 
-.search-btn {
-    justify-self: center;
+
+.search-icon {
+  vertical-align: middle;
+  color: var(--primary-color);
+  font-size: 2.5em;
+}
+
+.search-bar input {
+  flex-grow: 1;
+  background-color: #e4dce2;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+.search-select {
+  flex-direction: row;
+}
+
+.search-select select {
+  background-color: #e4dce2;
 }
 
 

@@ -26,33 +26,37 @@ const Search = (props)=>{
     return (
         <>
             <form className="search" onSubmit={handleSearch}>
-                <div className='search-bar'>
+                <div className='field search-bar'>
                     <IoSearch className='search-icon'/>
                     <input id="q-search" name="search" type="text" placeholder="Search posts..." value={q} onChange={(e) => setQ(e.target.value)} />
                 </div>
-                <div>
-                    <label htmlFor="q-type">Art Type: </label>
-                    <select id="q-type" name="art-type" value={type} onChange={(e) => setType(e.target.value)}>
-                        <option value="">All types</option>
-                        <option value="crochet">Crochet</option>
-                        <option value="knitting">Knitting</option>
-                        <option value="sewing">Sewing</option>
-                        <option value="weaving">Weaving</option>
-                        <option value="embroidery">Embroidery</option>
-                        <option value="other">Other</option>
-                    </select>
+                <div className='filters'>
+                    <div className='field search-select'>
+                        <label htmlFor="q-type">Art type: </label>
+                        <select id="q-type" name="art-type" value={type} onChange={(e) => setType(e.target.value)}>
+                            <option value="">All types</option>
+                            <option value="crochet">Crochet</option>
+                            <option value="knitting">Knitting</option>
+                            <option value="sewing">Sewing</option>
+                            <option value="weaving">Weaving</option>
+                            <option value="embroidery">Embroidery</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div className='field search-select'>
+                        <label htmlFor="q-skill">Skill level: </label>
+                        <select id="q-skill" name="skill-level" value={skill} onChange={(e) => setSkill(e.target.value)}>
+                            <option value="">All skill levels</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="q-skill">Art Type: </label>
-                    <select id="q-skill" name="skill-level" value={skill} onChange={(e) => setSkill(e.target.value)}>
-                        <option value="">All skill levels</option>
-                        <option value="beginner">Beginner</option>
-                        <option value="intermediate">Intermediate</option>
-                        <option value="advanced">Advanced</option>
-                    </select>
+                <div className='card-actions'>
+                    <button className="btn" type="submit">Search</button>
+                    <button className="btn danger-btn" type="button" onClick={handleClear}>Clear</button>
                 </div>
-                <button className="btn" type="submit">Search</button>
-                <button className="btn danger-btn" type="button" onClick={handleClear}>Clear</button>
             </form>
         </>
     );
