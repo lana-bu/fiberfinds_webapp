@@ -10,6 +10,17 @@ function About() {
             </p>
 
             <section className="card">
+                <h2 className='card-heading'>Our Mission</h2>
+                <p>
+                    Our goal is to foster a community of fiber artists by making various patterns easily accessible to everyone.
+                    Please note that we will not tolerate users posting paid patterns on our website. Please only post your own
+                    patterns or repost patterns that have already been shared for free by the original creator (i.e. on YouTube
+                    or their blog). We want to support the fiber artist community, not tear it down by taking income away from
+                    our creative members.
+                </p>
+            </section>
+
+            <section className="card">
                 <h2 className='card-heading'>Features for Everyone</h2>
                 <p>
                     Anyone can use our website without an account. The abilities open to guest users include:
