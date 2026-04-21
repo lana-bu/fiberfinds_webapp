@@ -39,5 +39,6 @@ npm install
 - Sanitizer for URL: https://github.com/validatorjs/validator.js#sanitizers
 - Implementing authentication context for React: https://ktree.com/blog/managing-authentication-state-with-react-context-provider.html
 - React icons: https://react-icons.github.io/react-icons/
+- Optional chaining operator (?.): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
 ### Images
 - Favicon generator: https://favicon.io/favicon-converter/

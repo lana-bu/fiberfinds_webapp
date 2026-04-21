@@ -49,7 +49,6 @@ body {
     grid-area: main;
     color: var(--text-color);
     padding: var(--spacing) 2em;
-    margin: var(--spacing) 2em;
 }
 
 .content-container a {
@@ -81,10 +80,6 @@ body {
 .site-logo {
     width: 10%;
     height: auto;
-}
-
-.logo-link {
-    width: 8%;
 }
 
 .copyright {
@@ -165,16 +160,6 @@ body {
     align-items: center;
 }
 
-.profile-icon-container {
-    margin-left: auto;
-    width: 11%;
-    padding: 0.2em;
-}
-
-.logout {
-    width: fit-content;
-}
-
 /* popout navigation sidebar */
 .nav-sidebar {
     grid-area: sidebar;
@@ -210,6 +195,14 @@ body {
     text-align: center;
 }
 
+.intro {
+    text-align: center;
+    font-size: 1.25em;
+    font-weight: bold;
+    align-self: center;
+    color: #715068;
+}
+
 /* cards */
 .card {
     background: linear-gradient(180deg, #ffffff 0%, #fbe7f2 100%);
@@ -229,116 +222,7 @@ body {
   color: var(--primary-color);
 }
 
-/* homepage contents */
-.message-stack {
-    max-width: 980px;
-    margin: 0 auto 1rem;
-}
-
-.site-message {
-    border-radius: 18px;
-    padding: 0.9rem 1.1rem;
-    margin-bottom: 0.85rem;
-    font-weight: 700;
-    text-align: center;
-    border: 1px solid transparent;
-}
-
-.site-message.success {
-    background-color: #e9fbf5;
-    border-color: #9dd7c2;
-    color: #0f5a4a;
-}
-
-.post-list {
-    max-width: 900px;
-    margin: 0 auto;
-    display: grid;
-    gap: 1.25rem;
-}
-
-.note-card {
-    text-align: center;
-    background: linear-gradient(180deg, #f9fffe 0%, #eef7f8 100%);
-    border: 1px solid #c7dfdc;
-    border-radius: 24px;
-    box-shadow: 0 16px 36px rgba(0, 56, 68, 0.08);
-    padding: 1.5rem 1.4rem;
-}
-
-.note-card-tag {
-    margin: 0 0 0.65rem;
-    font-size: 0.72em;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #2c6a73;
-}
-
-.note-card-title {
-    margin: 0;
-    color: var(--primary-color);
-}
-
-.note-card-meta {
-    margin: 0.5rem 0 0;
-    font-weight: 700;
-}
-
-.note-card-submeta {
-    margin: 0.3rem 0 0;
-    color: #49656d;
-}
-
-.note-card-description {
-    margin: 1rem auto 0;
-    max-width: 34rem;
-    line-height: 1.45;
-}
-
-.note-card-description-muted {
-    color: #67818a;
-    font-style: italic;
-}
-
-.note-card-date {
-    margin: 1rem 0 0;
-    font-size: 0.72em;
-    color: #5b767e;
-}
-
-.post-actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.75rem;
-}
-
-.inline-form {
-    display: inline-flex;
-    margin: 0;
-}
-
 /* search form styling */
-.search-toggle-btn {
-    font-size: 0.8em;
-    background-color: transparent;
-}
-
-.search-toggle-btn:hover {
-    background-color: #69ebd150;
-}
-
-.search-toggle-btn:active {
-    background-color: #69ebd184;
-}
-
-.search-form {
-    display: none;
-    margin: var(--spacing);
-}
 
 .search-form-field {
     margin: var(--spacing);
@@ -348,19 +232,10 @@ body {
     justify-self: center;
 }
 
-/* create post form */
-.create-post-shell {
-    max-width: 980px;
-    margin: 0 auto;
-}
 
-.intro {
-    text-align: center;
-    font-size: 1.25em;
-    font-weight: bold;
-    align-self: center;
-    color: #715068;
-}
+
+
+
 
 .note-form {
     background: linear-gradient(180deg, #f6fffd 0%, #eef7f8 100%);
@@ -504,28 +379,7 @@ body {
     margin-top: 2rem;
 }
 
-/* About Page */
-.about-page {
-    max-width: 900px;
-    margin: 0 auto;
-    width: 100%;
-}
 
-.about-page p {
-    line-height: 1.5;
-}
-
-/* CTA */
-.about-cta {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-}
-
-/* button inside flex container */
-.about-cta .btn {
-    display: inline-flex;
-}
 
 
 /* Your Notes Page */
@@ -589,15 +443,6 @@ body {
     display: inline-flex;
 }
 
-/* Delete button */
-.danger-btn {
-    background: #e74c3c;
-}
-
-.danger-btn:hover {
-    background: #c0392b;
-}
-
 /* Empty state */
 .empty-msg {
     text-align: center;
@@ -658,19 +503,6 @@ body {
 /* Keep buttons aligned */
 .post-actions .btn {
     display: inline-flex;
-}
-
-/* Danger button */
-.danger-btn {
-    background: #e74c3c;
-}
-
-.danger-btn:hover {
-    background: #c0392b;
-}
-
-.danger-btn:active {
-    background: #e74c3c;
 }
 
 /* Login Page */
@@ -880,7 +712,7 @@ body {
 
 /* mobile portrait layout (479px or less */
 @media only screen and (max-width: 479px) {
-    body {
+    #root {
         grid-template-areas:
         "header"
         "nav"
@@ -901,7 +733,7 @@ body {
         position: relative;
         z-index: 2;
         width: 100%;
-        background-color: #003844f9;
+        background-color: #824670f8;
         text-align: center;
         font-size: 1.5em;
     }

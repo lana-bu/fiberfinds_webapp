@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { IoSearch } from "react-icons/io5";
 import Search from '../components/Search';
 import PostList from '../components/PostList';
 
@@ -12,20 +11,28 @@ function Home() {
     const [totalPosts, setTotalPosts] = useState(0);
     const [loading, setLoading] = useState(true);
     const limit = 10;
-
-    // search/filter state
-    const [q, setQ] = useState('');
-    const [type, setType] = useState('');
-    const [skill, setSkill] = useState('');
+    const lastFilters = useRef({});
 
     const fetchPosts = async (pageNum, filters) => {
         setLoading(true);
+
+        // if filters provided store them, otherwise use the last-used filters (for going to previous or next page)
+        if (filters) {
+            lastFilters.current = filters;
+        }
+        const activeFilters = lastFilters.current;
+
         try {
-            const { q: qVal, type: typeVal, skill: skillVal } = filters || { q, type, skill };
             const params = { page: pageNum };
-            if (qVal) params.q = qVal;
-            if (typeVal) params.type = typeVal;
-            if (skillVal) params.skill = skillVal;
+            if (activeFilters.q) {
+                params.q = activeFilters.q;
+            }
+            if (activeFilters.type) {
+                params.type = activeFilters.type;
+            }
+            if (activeFilters.skill) {
+                params.skill = activeFilters.skill;
+            }
 
             const res = await axios.get(`${url}/api/posts`, { params });
             setPosts(res.data.posts);
@@ -41,18 +48,6 @@ function Home() {
     useEffect(() => {
         fetchPosts(1);
     }, []);
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-        fetchPosts(1);
-    };
-
-    const handleClear = () => {
-        setQ('');
-        setType('');
-        setSkill('');
-        fetchPosts(1, { q: '', type: '', skill: '' });
-    };
 
     const totalPages = Math.ceil(totalPosts / limit);
 

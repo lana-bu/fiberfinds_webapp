@@ -10,11 +10,13 @@ function PostForm({ initialData, onSubmit, submitLabel }) {
     const [link, setLink] = useState(initialData?.link || '');
     const [image, setImage] = useState(null);
     const [file, setFile] = useState(null);
-    const [error, setError] = useState('');
+    const [fieldErrors, setFieldErrors] = useState({});
+    const [formError, setFormError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError('');
+        setFieldErrors({});
+        setFormError('');
 
         const formData = new FormData();
         formData.append('type', type);
@@ -24,38 +26,46 @@ function PostForm({ initialData, onSubmit, submitLabel }) {
         formData.append('creator', creator);
         formData.append('uploadType', uploadType);
 
-        if (uploadType === 'link' || uploadType === 'both') {
-            formData.append('link', link);
-        }
-        if (image) {
+        if (image) { // If image uploaded
             formData.append('image', image);
         }
-        if ((uploadType === 'file' || uploadType === 'both') && file) {
+
+        if (uploadType === 'link' || uploadType === 'both') { // If link provided
+            formData.append('link', link);
+        }
+        if ((uploadType === 'file' || uploadType === 'both') && file) { // if file provided
             formData.append('file', file);
         }
 
         try {
             await onSubmit(formData);
         } catch (err) {
-            const data = err.response?.data;
-            if (data?.errors) {
-                // errors is an object grouped by field (e.g. { title: ['Title is required'] })
-                const messages = Object.values(data.errors).flat();
-                setError(messages.join('. '));
+            if (err.response) {
+                const data = err.response.data;
+
+                if (data && data.errors) {
+                    // validation errors grouped by field (e.g. { title: ['Title is required'] })
+                    setFieldErrors(data.errors);
+                } else if (data && data.message) {
+                    // single error message (e.g. multer's "Invalid file type." or "File too large")
+                    setFormError(data.message);
+                } else {
+                    setFormError('Something went wrong');
+                }
             } else {
-                setError(data?.message || 'Something went wrong');
+                setFormError('Something went wrong');
             }
         }
     };
 
     return (
         <form className='card' onSubmit={handleSubmit}>
-            {error && <p>{error}</p>}
+            {formError && <p class='form-error'>{formError}</p>}
 
-            <div>
+            <div className='field'>
                 <label htmlFor="type">Type of Fiber Art:</label>
-                <select id="type" value={type} onChange={(e) => setType(e.target.value)}>
-                    <option value="">Select type...</option>
+                <select id="type" name="type" required="required" value={type} onChange={(e) => setType(e.target.value)}>
+                    <option disabled="disabled" value="">Select type...</option>
                     <option value="crochet">Crochet</option>
                     <option value="knitting">Knitting</option>
                     <option value="sewing">Sewing</option>
@@ -63,98 +73,90 @@ function PostForm({ initialData, onSubmit, submitLabel }) {
                     <option value="embroidery">Embroidery</option>
                     <option value="other">Other</option>
                 </select>
+                {fieldErrors.type && fieldErrors.type.map((msg, i) => (
+                    <p class='field-error' key={i}>{msg}</p>
+                ))}
             </div>
 
-            <div>
+            <div className='field'>
                 <label htmlFor="title">Title:</label>
-                <input
-                    id="title"
-                    type="text"
-                    placeholder="Enter title..."
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
+                <input id="title" name="title" type="text" required="required" placeholder="Enter title..." value={title} onChange={(e) => setTitle(e.target.value)} />
+                {fieldErrors.title && fieldErrors.title.map((msg, i) => (
+                    <p class='field-error' key={i}>{msg}</p>
+                ))}
             </div>
 
-            <div>
+            <div className='field'>
                 <label htmlFor="description">Description (optional):</label>
-                <textarea
-                    id="description"
-                    placeholder="Enter description..."
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                />
+                <textarea id="description" name="description" placeholder="Enter description..." value={description} onChange={(e) => setDescription(e.target.value)} />
+                {fieldErrors.description && fieldErrors.description.map((msg, i) => (
+                    <p class='field-error' key={i}>{msg}</p>
+                ))}
             </div>
 
-            <div>
+            <div className='field'>
                 <label htmlFor="skill">Skill Level:</label>
-                <select id="skill" value={skill} onChange={(e) => setSkill(e.target.value)}>
-                    <option value="">Select skill level...</option>
+                <select id="skill" name="skill" required="required" value={skill} onChange={(e) => setSkill(e.target.value)}>
+                    <option disabled="disabled" value="">Select skill level...</option>
                     <option value="beginner">Beginner</option>
                     <option value="intermediate">Intermediate</option>
                     <option value="advanced">Advanced</option>
                 </select>
+                {fieldErrors.skill && fieldErrors.skill.map((msg, i) => (
+                    <p class='field-error' key={i}>{msg}</p>
+                ))}
             </div>
 
-            <div>
+            <div className='field'>
                 <label htmlFor="creator">Pattern Creator:</label>
-                <input
-                    id="creator"
-                    type="text"
-                    placeholder="Enter pattern creator..."
-                    value={creator}
-                    onChange={(e) => setCreator(e.target.value)}
-                />
+                <input id="creator" name="creator" type="text" required="required" placeholder="Enter pattern creator..." value={creator} onChange={(e) => setCreator(e.target.value)} />
+                {fieldErrors.creator && fieldErrors.creator.map((msg, i) => (
+                    <p class='field-error' key={i}>{msg}</p>
+                ))}
             </div>
 
-            <div>
+            <div className='file-field'>
                 <label htmlFor="image">Image (optional):</label>
-                <input
-                    id="image"
-                    type="file"
-                    accept="image/jpeg,image/png,image/gif"
-                    onChange={(e) => setImage(e.target.files[0])}
-                />
+                <input id="image" type="file" accept="image/jpeg,image/png,image/gif" onChange={(e) => setImage(e.target.files[0])} />
+                {initialData?.image && !image && (
+                    <p>Current image file: {initialData.image.split(/[/\\]/).pop()}</p>
+                )}
             </div>
 
-            <div>
+            <div className='field'>
                 <label htmlFor="uploadType">Upload Type:</label>
-                <select id="uploadType" value={uploadType} onChange={(e) => setUploadType(e.target.value)}>
+                <select id="uploadType" name="uploadType" required="required" value={uploadType} onChange={(e) => setUploadType(e.target.value)}>
                     <option value="link">Link</option>
                     <option value="file">File</option>
                     <option value="both">Both</option>
                 </select>
+                {fieldErrors.uploadType && fieldErrors.uploadType.map((msg, i) => (
+                    <p class='field-error' class='error' key={i}>{msg}</p>
+                ))}
             </div>
 
             {(uploadType === 'link' || uploadType === 'both') && (
-                <div>
+                <div className='field'>
                     <label htmlFor="link">Pattern Link:</label>
-                    <input
-                        id="link"
-                        type="url"
-                        placeholder="Enter pattern URL..."
-                        value={link}
-                        onChange={(e) => setLink(e.target.value)}
-                    />
+                    <input id="link" name="link" type="url" required="required" placeholder="Enter pattern URL..." value={link} onChange={(e) => setLink(e.target.value)} />
+                    {fieldErrors.link && fieldErrors.link.map((msg, i) => (
+                        <p class='field-error' key={i}>{msg}</p>
+                    ))}
                 </div>
             )}
 
             {(uploadType === 'file' || uploadType === 'both') && (
-                <div>
+                <div className='file-field'>
                     <label htmlFor="file">Pattern File:</label>
-                    <input
-                        id="file"
-                        type="file"
-                        accept=".pdf,.txt"
-                        onChange={(e) => setFile(e.target.files[0])}
-                    />
+                    <input id="file" name="file" type="file" accept=".pdf,.txt" required="required" onChange={(e) => setFile(e.target.files[0])} />
                     {initialData?.file && !file && (
                         <p>Current file: {initialData.file.split(/[/\\]/).pop()}</p>
                     )}
                 </div>
             )}
 
-            <button type="submit">{submitLabel || 'Submit'}</button>
+            {/* to label with Create Post or Save Changes instead */}
+            <button type="submit">{submitLabel || 'Submit'}</button> 
         </form>
     );
 }

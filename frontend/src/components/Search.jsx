@@ -13,7 +13,7 @@ const Search = (props)=>{
 
     const handleSearch = (e) => {
         e.preventDefault();
-        props.onSearch(1);
+        props.onSearch(1, { q, type, skill });
     };
 
     const handleClear = () => {
@@ -25,18 +25,14 @@ const Search = (props)=>{
 
     return (
         <>
-            <form onSubmit={handleSearch}>
+            <form className="search" onSubmit={handleSearch}>
                 <div className='search-bar'>
                     <IoSearch className='search-icon'/>
-                    <input
-                        type="text"
-                        placeholder="Search posts..."
-                        value={q}
-                        onChange={(e) => setQ(e.target.value)}
-                    />
+                    <input id="q-search" name="search" type="text" placeholder="Search posts..." value={q} onChange={(e) => setQ(e.target.value)} />
                 </div>
                 <div>
-                    <select value={type} onChange={(e) => setType(e.target.value)}>
+                    <label htmlFor="q-type">Art Type: </label>
+                    <select id="q-type" name="art-type" value={type} onChange={(e) => setType(e.target.value)}>
                         <option value="">All types</option>
                         <option value="crochet">Crochet</option>
                         <option value="knitting">Knitting</option>
@@ -47,15 +43,16 @@ const Search = (props)=>{
                     </select>
                 </div>
                 <div>
-                    <select value={skill} onChange={(e) => setSkill(e.target.value)}>
+                    <label htmlFor="q-skill">Art Type: </label>
+                    <select id="q-skill" name="skill-level" value={skill} onChange={(e) => setSkill(e.target.value)}>
                         <option value="">All skill levels</option>
                         <option value="beginner">Beginner</option>
                         <option value="intermediate">Intermediate</option>
                         <option value="advanced">Advanced</option>
                     </select>
                 </div>
-                <button type="submit">Search</button>
-                <button type="button" onClick={handleClear}>Clear</button>
+                <button className="btn" type="submit">Search</button>
+                <button className="btn danger-btn" type="button" onClick={handleClear}>Clear</button>
             </form>
         </>
     );

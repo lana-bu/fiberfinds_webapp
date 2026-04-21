@@ -17,7 +17,7 @@ const Navigation = () => {
             <CgProfile/>
             <span className="username">{user.username}</span>
         </div>
-        <button onClick={logout}>Logout</button>
+        <button className="btn" onClick={logout}>Log Out</button>
       </>
     );
     userLinks = (
