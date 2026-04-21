@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const PostSchema = new mongoose.Schema(
     {
         userId: { // user who made post
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
             required: true,
         },
@@ -14,7 +14,6 @@ const PostSchema = new mongoose.Schema(
         },
         title: {
             type: String, 
-            ref: 'User',
             required: true,
         },
         description: {
@@ -31,7 +30,7 @@ const PostSchema = new mongoose.Schema(
             required: true,
         },
         image: {
-            type: File,
+            type: String,
             default: null,
         },
         uploadType: {
@@ -41,20 +40,16 @@ const PostSchema = new mongoose.Schema(
         },
         link: {
             type: String,
-            required: function() { 
-                return this.uploadType === 'link' || 'both';
-            }
+            default: null,
         },
         file: {
-            type: File,
-            required: function() { 
-                return this.uploadType === 'file' || 'both';
-            }
+            type: String,
+            default: null,
         },
-        ratings: [
+        ratings: [ // may implement later
             {
                 userId: {
-                    type: Schema.Types.ObjectId,
+                    type: mongoose.Schema.Types.ObjectId,
                     ref: 'User',
                     required: true,
                 },
@@ -65,10 +60,10 @@ const PostSchema = new mongoose.Schema(
                 },
             }
         ],
-        comments: [
+        comments: [ // may implement later
             {
                 userId: {
-                    type: Schema.Types.ObjectId,
+                    type: mongoose.Schema.Types.ObjectId,
                     ref: 'User',
                     required: true,
                 },
