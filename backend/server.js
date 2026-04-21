@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import { xss } from 'express-xss-sanitizer';
 import cookieParser from 'cookie-parser';
 import { connectToMongo } from './config/db.js';
 import { setCsrfToken, validateCsrfToken } from './middleware/csrf.js';
@@ -14,6 +15,7 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json()); // built-in body parser
+app.use(xss()); // sanitize all user inputs to prevent XSS
 app.use(cookieParser());
 app.use(setCsrfToken); // set CSRF cookie on every response
 app.use('/api/auth', authRoutes); // no CSRF validation (login/signup)

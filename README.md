@@ -35,5 +35,6 @@ npm install
 - Restricting file types: https://www.xjavascript.com/blog/multer-file-type-typescript/
 - Pagnation (to reduce redering costs): https://www.slingacademy.com/article/implement-pagination-express-js/
 - Using express-validator: https://betterstack.com/community/guides/scaling-nodejs/express-validator-nodejs/
+- XSS sanitizer library: https://www.npmjs.com/package/express-xss-sanitizer
 ### Images
 - Favicon generator: https://favicon.io/favicon-converter/
