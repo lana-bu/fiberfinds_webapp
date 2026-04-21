@@ -3,14 +3,11 @@ import { Link } from 'react-router-dom';
 function About() {
     return (
         <div>
-            <Header/>
-            <Navigation/>
             <main className='content-container'>
                 hello
             </main>
-            <Footer/>
         </div>
     );
 }
 
-export default Header;
+export default About;

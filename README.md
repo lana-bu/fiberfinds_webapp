@@ -37,5 +37,7 @@ npm install
 - Using express-validator: https://betterstack.com/community/guides/scaling-nodejs/express-validator-nodejs/
 - XSS sanitizer library: https://www.npmjs.com/package/express-xss-sanitizer
 - Sanitizer for URL: https://github.com/validatorjs/validator.js#sanitizers
+- Implementing authentication context for React: https://ktree.com/blog/managing-authentication-state-with-react-context-provider.html
+- React icons: https://react-icons.github.io/react-icons/
 ### Images
 - Favicon generator: https://favicon.io/favicon-converter/

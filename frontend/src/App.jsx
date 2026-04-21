@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {Routes, Route, Link} from "react-router-dom";
+import {Routes, Route} from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext.jsx';
+import Header from './components/Header.jsx';
+import Navigation from './components/Navigation.jsx';
+import Footer from './components/Footer.jsx';
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import PostDetails from './pages/PostDetails.jsx';
@@ -13,28 +17,28 @@ import EditPost from './pages/EditPost.jsx';
 const url = import.meta.env.VITE_API_URL;
 
 function App() {
-  const [tasks, setTasks] = useState([]);
-  const [title, setTitle] = useState('');
+  // const [tasks, setTasks] = useState([]);
+  // const [title, setTitle] = useState('');
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
+  // useEffect(() => {
+  //   fetchTasks();
+  // }, []);
 
-  const fetchPosts = async () => {
-    const res = await axios.get(`${url}/api/posts`);
-    setTasks(res.data);
-  };
+  // const fetchPosts = async () => {
+  //   const res = await axios.get(`${url}/api/posts`);
+  //   setTasks(res.data);
+  // };
 
-  const addTask = async () => {
-    const res = await axios.post(`${url}/api/posts`, { title });
-    setTasks([...tasks, res.data]);
-    setTitle('');
-  };
+  // const addTask = async () => {
+  //   const res = await axios.post(`${url}/api/posts`, { title });
+  //   setTasks([...tasks, res.data]);
+  //   setTitle('');
+  // };
 
-  const deleteTask = async (id) => {
-    await axios.delete(`${url}/api/posts/${id}`);
-    setTasks(tasks.filter(task => task._id !== id));
-  };
+  // const deleteTask = async (id) => {
+  //   await axios.delete(`${url}/api/posts/${id}`);
+  //   setTasks(tasks.filter(task => task._id !== id));
+  // };
 
   return (
     <AuthProvider>
@@ -43,24 +47,18 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/post-details" element={<PostDetails />} />
           <Route path="/login" element={<Login />} />
-          {/* ... */}
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/your-posts" element={<YourPosts />} />
+          <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/edit-post" element={<EditPost />} />
         </Routes>
       </main>
       <Footer />
     </AuthProvider>
   );
-
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/post-details" element={<PostDetails />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/your-posts" element={<YourPosts />} />
-      <Route path="/create-post" element={<CreatePost />} />
-      <Route path="/edit-post" element={<EditPost />} />
-    </Routes>
     
 
     // <div>
@@ -76,7 +74,6 @@ function App() {
     //     ))}
     //   </ul>
     // </div>
-  );
 }
 
 export default App;
