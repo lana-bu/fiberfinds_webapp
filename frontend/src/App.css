@@ -345,11 +345,14 @@ body {
 }
 
 /* search form styling */
+.search {
+  padding: 2em 0;
+}
+
 .search-bar {
   flex-direction: row;
   align-items: center;
 }
-
 
 .search-icon {
   vertical-align: middle;
