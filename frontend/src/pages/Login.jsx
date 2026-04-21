@@ -1,30 +1,71 @@
-import { Link } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
+
+const url = import.meta.env.VITE_API_URL;
 
 function Login() {
+    const { login } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const [usernameOrEmail, setUsernameOrEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+
+        try {
+            const res = await axios.post(`${url}/api/auth/login`, {
+                usernameOrEmail,
+                password,
+            });
+            login(res.data.user);
+            navigate('/');
+        } catch (err) {
+            setError(err.response?.data?.message || 'Login failed');
+        }
+    };
+
     return (
         <>
-            <h1 className="content-header">Log In</h1>
+            <h1>Log In</h1>
 
-            <div className='card'>
-                <form method="post">
-                    <div className='field'>
-                        <label for='usernameOrEmail'>Username/Email: </label>
-                        <input name='usernameOrEmail' placeholder='Enter username or email...' value=''/>
+            {error && <p>{error}</p>}
+
+            <div>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label htmlFor="usernameOrEmail">Username/Email:</label>
+                        <input
+                            id="usernameOrEmail"
+                            type="text"
+                            placeholder="Enter username or email..."
+                            value={usernameOrEmail}
+                            onChange={(e) => setUsernameOrEmail(e.target.value)}
+                        />
                     </div>
-                    <div className='field'>
-                        <label for='password'>Password: </label>
-                        <input name='password' placeholder='Enter password...' value=''/>
+                    <div>
+                        <label htmlFor="password">Password:</label>
+                        <input
+                            id="password"
+                            type="password"
+                            placeholder="Enter password..."
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
                     </div>
-                    
-                    <button className="btn" type="submit">Create Account</button>
+
+                    <button type="submit">Log In</button>
                 </form>
             </div>
 
-            <p class="register-links">
-                If you don't already have an account, register for one <Link to='/signup'>here</Link>.
-                <br>
-                </br>
-                (Or <Link to='/'>browse notes as Guest</Link>)
+            <p>
+                If you don't already have an account, register for one <Link to="/signup">here</Link>.
+                <br />
+                (Or <Link to="/">browse posts as Guest</Link>)
             </p>
         </>
     );

@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import {Routes, Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.jsx';
 import Header from './components/Header.jsx';
 import Navigation from './components/Navigation.jsx';
@@ -13,67 +11,28 @@ import Signup from './pages/Signup.jsx';
 import YourPosts from './pages/YourPosts.jsx';
 import CreatePost from './pages/CreatePost.jsx';
 import EditPost from './pages/EditPost.jsx';
-
-const url = import.meta.env.VITE_API_URL;
+import './App.css';
 
 function App() {
-  // const [tasks, setTasks] = useState([]);
-  // const [title, setTitle] = useState('');
-
-  // useEffect(() => {
-  //   fetchTasks();
-  // }, []);
-
-  // const fetchPosts = async () => {
-  //   const res = await axios.get(`${url}/api/posts`);
-  //   setTasks(res.data);
-  // };
-
-  // const addTask = async () => {
-  //   const res = await axios.post(`${url}/api/posts`, { title });
-  //   setTasks([...tasks, res.data]);
-  //   setTitle('');
-  // };
-
-  // const deleteTask = async (id) => {
-  //   await axios.delete(`${url}/api/posts/${id}`);
-  //   setTasks(tasks.filter(task => task._id !== id));
-  // };
-
   return (
     <AuthProvider>
       <Header />
       <Navigation />
-      <main>
+      <main className='content-container'>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/post-details" element={<PostDetails />} />
+          <Route path="/post/:id" element={<PostDetails />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/your-posts" element={<YourPosts />} />
           <Route path="/create-post" element={<CreatePost />} />
-          <Route path="/edit-post" element={<EditPost />} />
+          <Route path="/edit-post/:id" element={<EditPost />} />
         </Routes>
       </main>
       <Footer />
     </AuthProvider>
   );
-    
-
-    // <div>
-    //   <h1>Task Manager</h1>
-    //   <input value={title} onChange={(e) => setTitle(e.target.value)} />
-    //   <button onClick={addTask}>Add</button>
-    //   <ul>
-    //     {tasks.map(task => (
-    //       <li key={task._id}>
-    //         {task.title}
-    //         <button onClick={() => deleteTask(task._id)}>Delete</button>
-    //       </li>
-    //     ))}
-    //   </ul>
-    // </div>
 }
 
 export default App;
