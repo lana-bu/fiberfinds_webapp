@@ -1,24 +1,33 @@
 import { Link } from 'react-router-dom';
 
+const url = import.meta.env.VITE_API_URL; // to get image URL
+
 function PostItem({ post, showActions, onDelete }) {
     return (
-        <div className='card'>
-            <p>{post.type}</p>
-            <h3><Link to={`/post/${post._id}`}>{post.title}</Link></h3>
-            <p>By {post.creator} | {post.skill}</p>
+        <div className='card post-card'>
+            <p className='card-tag'>{post.type} | {post.skill}</p>
+            <h3 className='card-title'>{post.title}</h3>
+            
+            {post.image &&
+                <img className="card-image" src={`${url}/${post.image}`} alt={post.title} />
+            }
 
-            {post.description && <p>{post.description}</p>}
+            <p className='card-meta'>Pattern by: {post.creator}</p>
+            <p className='card-submeta'>Posted on {new Date(post.createdAt).toLocaleDateString()} by {post.userId.username}</p>
 
-            <p>{new Date(post.createdAt).toLocaleDateString()}</p>
-
+            <div className='card-actions'>
+                <Link className='btn-link' to={`/post/${post._id}`}>
+                    <button className="btn">View</button>
+                </Link>
             {showActions && (
-                <div>
-                    <Link to={`/edit-post/${post._id}`}>
-                        <button>Edit</button>
+                <>
+                    <Link className='btn-link' to={`/edit-post/${post._id}`}>
+                        <button className='btn'>Edit</button>
                     </Link>
-                    <button onClick={() => onDelete(post._id)}>Delete</button>
-                </div>
+                    <button className='btn danger-btn' onClick={() => onDelete(post._id)}>Delete</button>
+                </>
             )}
+            </div>
         </div>
     );
 }

@@ -42,7 +42,7 @@ function YourPosts() {
     if (!user) {
         return (
             <>
-                <h1>Your Posts</h1>
+                <h1 className="content-header">Your Posts</h1>
                 <p>You must be <Link to="/login">logged in</Link> to view your posts.</p>
             </>
         );
@@ -50,7 +50,7 @@ function YourPosts() {
 
     return (
         <>
-            <h1>Your Posts</h1>
+            <h1 className="content-header">Your Posts</h1>
 
             {loading && <p>Loading...</p>}
 

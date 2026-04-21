@@ -44,7 +44,7 @@ function PostDetails() {
     if (error) return <p>{error}</p>;
     if (!post) return <p>Post not found.</p>;
 
-    const isOwner = user && user.id === post.userId;
+    const isOwner = user && user.id === post.userId._id;
 
     return (
         <>

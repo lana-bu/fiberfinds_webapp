@@ -203,6 +203,12 @@ body {
     color: #715068;
 }
 
+.post-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* cards */
 .card {
     background: linear-gradient(180deg, #ffffff 0%, #fbe7f2 100%);
@@ -220,6 +226,47 @@ body {
 .card-heading {
   text-align: center;
   color: var(--primary-color);
+}
+
+.post-card {
+  text-align: center;
+  width: 85%;
+  align-self: center;
+}
+
+.card-tag {
+    margin: 0 0 var(spacing);
+    font-size: 0.7em;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--primary-color);
+}
+
+.card-title {
+  margin: 0;
+}
+
+.card-meta {
+  margin: var(--spacing) 0 0;
+}
+
+.card-submeta {
+   margin: var(--spacing) 0 0;
+   font-size: 0.7em;
+   color: var(--primary-color);
+}
+
+.card-image {
+  max-width: 50%;
+  margin: 1em;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--spacing);
 }
 
 /* form styling */
@@ -292,6 +339,10 @@ body {
 .field textarea {
     min-height: 9em;
     resize: vertical;
+}
+
+.info {
+  font-size: 0.75em;
 }
 
 /* search form styling */
@@ -392,17 +443,6 @@ body {
 /* Header */
 .notes-header {
     text-align: center;
-    margin-bottom: 1.5rem;
-}
-
-/* Card */
-.post-card,
-.note-card {
-    background: linear-gradient(180deg, #f6fffd 0%, #eef7f8 100%);
-    border: 1px solid #cbe2e0;
-    border-radius: 24px;
-    box-shadow: 0 18px 45px rgba(0, 56, 68, 0.08);
-    padding: 1.5rem;
     margin-bottom: 1.5rem;
 }
 

@@ -6,7 +6,7 @@ function PostList({ posts, showActions, onDelete, emptyMessage }) {
     }
 
     return (
-        <div>
+        <div className="post-list">
             {posts.map(post => (
                 <PostItem
                     key={post._id}

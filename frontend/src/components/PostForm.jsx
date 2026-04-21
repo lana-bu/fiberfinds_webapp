@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function PostForm({ initialData, onSubmit, submitLabel }) {
     const [type, setType] = useState(initialData?.type || '');
@@ -159,8 +160,14 @@ function PostForm({ initialData, onSubmit, submitLabel }) {
 
             <p className="info">*Required field</p>
 
-            {/* to label with Create Post or Save Changes instead */}
-            <button className="btn" type="submit">{submitLabel || 'Submit'}</button> 
+            <div className='card-actions'>
+                <Link className='btn-link' to={`/`}>
+                    <button className="btn danger-btn">Cancel</button>
+                </Link>
+
+                {/* to label with Create Post or Save Changes instead */}
+                <button className="btn" type="submit">{submitLabel || 'Submit'}</button> 
+            </div>
         </form>
     );
 }

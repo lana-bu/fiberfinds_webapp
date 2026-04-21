@@ -50,7 +50,7 @@ router.get('/', async (req, res) => {
         const totalPosts = await Post.countDocuments(filter);
 
         // filter, skip and limit for pagnation, sort, and retrieve posts
-        const posts = await Post.find(filter).skip(offset).limit(limit).sort({createdAt: -1}); // display in descending order of date created
+        const posts = await Post.find(filter).populate('userId', 'username').skip(offset).limit(limit).sort({createdAt: -1}); // display in descending order of date created
 
         res.json({ page, limit, totalPosts, posts });
     } catch (err) {
@@ -62,7 +62,7 @@ router.get('/', async (req, res) => {
 // get all of the posts you (current user) created
 router.get('/your-posts', auth, async (req, res) => {
     try {
-        const posts = await Post.find({ userId: req.user.id }).sort({ createdAt: -1 }); // display in descending order of date created
+        const posts = await Post.find({ userId: req.user.id }).populate('userId', 'username').sort({ createdAt: -1 }); // display in descending order of date created
       
         res.json({ posts });
     } catch (err) {
@@ -122,8 +122,8 @@ router.post('/create-post', auth, uploadFields, createOrEditPostRules, validate,
 // get a specific post by ID
 router.get('/:id', async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
-    
+    const post = await Post.findById(req.params.id).populate('userId', 'username');
+
     if (!post) {
       return res.status(404).json({ message: 'Post does not exist' });
     } else {
