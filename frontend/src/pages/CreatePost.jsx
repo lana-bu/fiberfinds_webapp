@@ -26,8 +26,7 @@ function CreatePost() {
 
     return (
         <>
-            <h1>Create Post</h1>
-            <p>Share a pattern with the community!</p>
+            <h1 className="content-header">Create Post</h1>
             <PostForm onSubmit={handleSubmit} submitLabel="Create Post" />
         </>
     );

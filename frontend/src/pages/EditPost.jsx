@@ -49,7 +49,7 @@ function EditPost() {
 
     return (
         <>
-            <h1>Edit Post</h1>
+            <h1 className="content-header">Edit Post</h1>
             <PostForm initialData={post} onSubmit={handleSubmit} submitLabel="Save Changes" />
         </>
     );

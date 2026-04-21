@@ -59,104 +59,108 @@ function PostForm({ initialData, onSubmit, submitLabel }) {
     };
 
     return (
-        <form className='card' onSubmit={handleSubmit}>
-            {formError && <p class='form-error'>{formError}</p>}
+        <form className='card post-form' onSubmit={handleSubmit}>
+            {formError && <p className='form-errors'>{formError}</p>}
 
-            <div className='field'>
-                <label htmlFor="type">Type of Fiber Art:</label>
-                <select id="type" name="type" required="required" value={type} onChange={(e) => setType(e.target.value)}>
-                    <option disabled="disabled" value="">Select type...</option>
-                    <option value="crochet">Crochet</option>
-                    <option value="knitting">Knitting</option>
-                    <option value="sewing">Sewing</option>
-                    <option value="weaving">Weaving</option>
-                    <option value="embroidery">Embroidery</option>
-                    <option value="other">Other</option>
-                </select>
-                {fieldErrors.type && fieldErrors.type.map((msg, i) => (
-                    <p class='field-error' key={i}>{msg}</p>
-                ))}
-            </div>
+            <div className="post-form-grid">
+                <div className='field'>
+                    <label htmlFor="title">Title*:</label>
+                    <input id="title" name="title" type="text" required="required" placeholder="Enter title..." value={title} onChange={(e) => setTitle(e.target.value)} />
+                    {fieldErrors.title && fieldErrors.title.map((msg, i) => (
+                        <p className='field-error' key={i}>{msg}</p>
+                    ))}
+                </div>
 
-            <div className='field'>
-                <label htmlFor="title">Title:</label>
-                <input id="title" name="title" type="text" required="required" placeholder="Enter title..." value={title} onChange={(e) => setTitle(e.target.value)} />
-                {fieldErrors.title && fieldErrors.title.map((msg, i) => (
-                    <p class='field-error' key={i}>{msg}</p>
-                ))}
-            </div>
+                <div className='field'>
+                    <label htmlFor="type">Type of fiber art*:</label>
+                    <select id="type" name="type" required="required" value={type} onChange={(e) => setType(e.target.value)}>
+                        <option disabled="disabled" value="">Select type...</option>
+                        <option value="crochet">Crochet</option>
+                        <option value="knitting">Knitting</option>
+                        <option value="sewing">Sewing</option>
+                        <option value="weaving">Weaving</option>
+                        <option value="embroidery">Embroidery</option>
+                        <option value="other">Other</option>
+                    </select>
+                    {fieldErrors.type && fieldErrors.type.map((msg, i) => (
+                        <p className='field-error' key={i}>{msg}</p>
+                    ))}
+                </div>
 
-            <div className='field'>
-                <label htmlFor="description">Description (optional):</label>
-                <textarea id="description" name="description" placeholder="Enter description..." value={description} onChange={(e) => setDescription(e.target.value)} />
-                {fieldErrors.description && fieldErrors.description.map((msg, i) => (
-                    <p class='field-error' key={i}>{msg}</p>
-                ))}
-            </div>
+                <div className='field field-wide'>
+                    <label htmlFor="description">Description:</label>
+                    <textarea id="description" name="description" placeholder="Enter description..." value={description} onChange={(e) => setDescription(e.target.value)} />
+                    {fieldErrors.description && fieldErrors.description.map((msg, i) => (
+                        <p className='field-error' key={i}>{msg}</p>
+                    ))}
+                </div>
 
-            <div className='field'>
-                <label htmlFor="skill">Skill Level:</label>
-                <select id="skill" name="skill" required="required" value={skill} onChange={(e) => setSkill(e.target.value)}>
-                    <option disabled="disabled" value="">Select skill level...</option>
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
-                </select>
-                {fieldErrors.skill && fieldErrors.skill.map((msg, i) => (
-                    <p class='field-error' key={i}>{msg}</p>
-                ))}
-            </div>
+                <div className='field'>
+                    <label htmlFor="skill">Skill level*:</label>
+                    <select id="skill" name="skill" required="required" value={skill} onChange={(e) => setSkill(e.target.value)}>
+                        <option disabled="disabled" value="">Select skill level...</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                    {fieldErrors.skill && fieldErrors.skill.map((msg, i) => (
+                        <p className='field-error' key={i}>{msg}</p>
+                    ))}
+                </div>
 
-            <div className='field'>
-                <label htmlFor="creator">Pattern Creator:</label>
-                <input id="creator" name="creator" type="text" required="required" placeholder="Enter pattern creator..." value={creator} onChange={(e) => setCreator(e.target.value)} />
-                {fieldErrors.creator && fieldErrors.creator.map((msg, i) => (
-                    <p class='field-error' key={i}>{msg}</p>
-                ))}
-            </div>
+                <div className='field'>
+                    <label htmlFor="creator">Pattern creator*:</label>
+                    <input id="creator" name="creator" type="text" required="required" placeholder="Enter pattern creator..." value={creator} onChange={(e) => setCreator(e.target.value)} />
+                    {fieldErrors.creator && fieldErrors.creator.map((msg, i) => (
+                        <p className='field-error' key={i}>{msg}</p>
+                    ))}
+                </div>
 
-            <div className='file-field'>
-                <label htmlFor="image">Image (optional):</label>
-                <input id="image" type="file" accept="image/jpeg,image/png,image/gif" onChange={(e) => setImage(e.target.files[0])} />
-                {initialData?.image && !image && (
-                    <p>Current image file: {initialData.image.split(/[/\\]/).pop()}</p>
+                <div className='field field-wide'>
+                    <label htmlFor="image">Image:</label>
+                    <input id="image" type="file" accept="image/jpeg,image/png,image/gif" onChange={(e) => setImage(e.target.files[0])} />
+                    {initialData?.image && !image && (
+                        <p>Current image file: {initialData.image.split(/[/\\]/).pop()}</p>
+                    )}
+                </div>
+
+                <div className='field'>
+                    <label htmlFor="uploadType">Upload type*:</label>
+                    <select id="uploadType" name="uploadType" required="required" value={uploadType} onChange={(e) => setUploadType(e.target.value)}>
+                        <option value="link">Link</option>
+                        <option value="file">File</option>
+                        <option value="both">Both</option>
+                    </select>
+                    {fieldErrors.uploadType && fieldErrors.uploadType.map((msg, i) => (
+                        <p className='field-error' key={i}>{msg}</p>
+                    ))}
+                </div>
+
+                {(uploadType === 'link' || uploadType === 'both') && (
+                    <div className='field'>
+                        <label htmlFor="link">Pattern link*:</label>
+                        <input id="link" name="link" type="url" required="required" placeholder="Enter pattern URL..." value={link} onChange={(e) => setLink(e.target.value)} />
+                        {fieldErrors.link && fieldErrors.link.map((msg, i) => (
+                            <p className='field-error' key={i}>{msg}</p>
+                        ))}
+                    </div>
+                )}
+
+                {(uploadType === 'file' || uploadType === 'both') && (
+                    <div className='field field-wide'>
+                        <label htmlFor="file">Pattern file*:</label>
+                        <input id="file" name="file" type="file" accept=".pdf,.txt" required="required" onChange={(e) => setFile(e.target.files[0])} />
+                        {initialData?.file && !file && (
+                            <p>Current file: {initialData.file.split(/[/\\]/).pop()}</p>
+                        )}
+                    </div>
                 )}
             </div>
 
-            <div className='field'>
-                <label htmlFor="uploadType">Upload Type:</label>
-                <select id="uploadType" name="uploadType" required="required" value={uploadType} onChange={(e) => setUploadType(e.target.value)}>
-                    <option value="link">Link</option>
-                    <option value="file">File</option>
-                    <option value="both">Both</option>
-                </select>
-                {fieldErrors.uploadType && fieldErrors.uploadType.map((msg, i) => (
-                    <p class='field-error' class='error' key={i}>{msg}</p>
-                ))}
-            </div>
-
-            {(uploadType === 'link' || uploadType === 'both') && (
-                <div className='field'>
-                    <label htmlFor="link">Pattern Link:</label>
-                    <input id="link" name="link" type="url" required="required" placeholder="Enter pattern URL..." value={link} onChange={(e) => setLink(e.target.value)} />
-                    {fieldErrors.link && fieldErrors.link.map((msg, i) => (
-                        <p class='field-error' key={i}>{msg}</p>
-                    ))}
-                </div>
-            )}
-
-            {(uploadType === 'file' || uploadType === 'both') && (
-                <div className='file-field'>
-                    <label htmlFor="file">Pattern File:</label>
-                    <input id="file" name="file" type="file" accept=".pdf,.txt" required="required" onChange={(e) => setFile(e.target.files[0])} />
-                    {initialData?.file && !file && (
-                        <p>Current file: {initialData.file.split(/[/\\]/).pop()}</p>
-                    )}
-                </div>
-            )}
+            <p className="info">*Required field</p>
 
             {/* to label with Create Post or Save Changes instead */}
-            <button type="submit">{submitLabel || 'Submit'}</button> 
+            <button className="btn" type="submit">{submitLabel || 'Submit'}</button> 
         </form>
     );
 }
