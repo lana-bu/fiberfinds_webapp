@@ -18,6 +18,7 @@ app.use(express.json()); // built-in body parser
 app.use(xss()); // sanitize all user inputs to prevent XSS
 app.use(cookieParser());
 app.use(setCsrfToken); // set CSRF cookie on every response
+app.use('/uploads', express.static('uploads')); // serve uploaded files
 app.use('/api/auth', authRoutes); // no CSRF validation (login/signup)
 app.use('/api/posts', validateCsrfToken, postsRoutes); // CSRF validated
 // create about page route maybe?
