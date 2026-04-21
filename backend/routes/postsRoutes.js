@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import fs from 'fs/promises';
 import auth from '../middleware/auth.js';
+import { createOrEditPostRules } from '../middleware/validation/postValidation.js'
+import { validate } from '../middleware/validation/validate.js'
 import { handleUpload } from '../middleware/upload.js';
 import { Post } from '../models/Post.js';
 
