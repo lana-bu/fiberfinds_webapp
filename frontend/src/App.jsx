@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {Routes, Route, Link} from "react-router-dom";
+import Home from './pages/Home.jsx';
+import About from './pages/About.jsx';
+import PostDetails from './pages/PostDetails.jsx';
+import Login from './pages/Login.jsx';
+import Signup from './pages/Signup.jsx';
+import YourPosts from './pages/YourPosts.jsx';
+import CreatePost from './pages/CreatePost.jsx';
+import EditPost from './pages/EditPost.jsx';
 
 const url = import.meta.env.VITE_API_URL;
 
@@ -28,19 +37,45 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>Task Manager</h1>
-      <input value={title} onChange={(e) => setTitle(e.target.value)} />
-      <button onClick={addTask}>Add</button>
-      <ul>
-        {tasks.map(task => (
-          <li key={task._id}>
-            {task.title}
-            <button onClick={() => deleteTask(task._id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <AuthProvider>
+      <Header />
+      <Navigation />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          {/* ... */}
+        </Routes>
+      </main>
+      <Footer />
+    </AuthProvider>
+  );
+
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/post-details" element={<PostDetails />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/your-posts" element={<YourPosts />} />
+      <Route path="/create-post" element={<CreatePost />} />
+      <Route path="/edit-post" element={<EditPost />} />
+    </Routes>
+    
+
+    // <div>
+    //   <h1>Task Manager</h1>
+    //   <input value={title} onChange={(e) => setTitle(e.target.value)} />
+    //   <button onClick={addTask}>Add</button>
+    //   <ul>
+    //     {tasks.map(task => (
+    //       <li key={task._id}>
+    //         {task.title}
+    //         <button onClick={() => deleteTask(task._id)}>Delete</button>
+    //       </li>
+    //     ))}
+    //   </ul>
+    // </div>
   );
 }
 

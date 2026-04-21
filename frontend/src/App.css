@@ -1,4 +1,4 @@
-.counter {
+/* .counter {
   font-size: 16px;
   padding: 5px 10px;
   border-radius: 5px;
@@ -181,4 +181,988 @@
     right: 0;
     border-right-color: var(--border);
   }
+} */
+:root {
+    --primary-color: #003844;
+    --secondary-color: #ffffff;
+    --accent-color: #69ebd0;
+    --text-color: #011f26;
+    --danger-color: #c44536;
+    --spacing: 0.5em;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Optima, 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+        "header header"
+        "nav nav"
+        "sidebar main"
+        "footer footer";
+}
+
+.header-container, .footer-container {
+    padding: var(--spacing);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.header-container {
+    grid-area: header;
+    display: flex;
+    align-items: center;
+}
+
+.nav-container {
+    grid-area: nav;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    position: sticky;
+    top: 0;
+    display: flex;
+}
+
+.nav-container a {
+    color: var(--secondary-color);
+    display: flex;
+}
+
+.content-container {
+    grid-area: main;
+    color: var(--text-color);
+    padding: var(--spacing) 2em;
+}
+
+.content-container a {
+    color: var(--accent-color);
+}
+
+.footer-container {
+    grid-area: footer;
+    text-align: center;
+    box-shadow: 0 50vh 0 50vh var(--primary-color); /*so footer background color extends to bottom when main content is short */
+}
+
+/* header and footer content */
+.site-name {
+    font-size: 1.3em;
+}
+
+.site-name a {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+.site-name-large {
+    font-size: 1.7em;
+    margin-right: auto;
+}
+
+.site-logo {
+    width: 100%;
+    height: auto;
+}
+
+.logo-link {
+    width: 8%;
+}
+
+.copyright {
+    font-size: 0.5em;
+}
+
+/* svg icons */
+svg { 
+    width: 100%; /* scales to full size of container */
+    height: auto;
+}
+
+.icon {
+    fill: var(--secondary-color);
+    stroke: var(--secondary-color);
+    stroke-width: 16px;
+}
+
+/* buttons */
+.btn {
+    border: none;
+    border-radius: 8px;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: var(--spacing);
+    margin: var(--spacing);
+    white-space: nowrap;
+    /* align button content in middle of button */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn:hover {
+    cursor: pointer;
+    background-color: #5bcfb8;
+}
+
+.btn:active {
+    background-color: var(--accent-color);
+}
+
+.danger-btn {
+    background-color: var(--danger-color);
+    color: var(--secondary-color)
+}
+
+.danger-btn:hover {
+    background-color: #e15b4c;
+}
+
+.danger-btn:active {
+    background-color: var(--danger-color);
+}
+
+.btn-link {
+    text-decoration: none;
+}
+
+/* navigation bar contents */
+.menu-btn {
+    background-color: transparent;
+    width: 10%;
+    padding: 0;
+    margin-right: auto;
+}
+
+.menu-btn:hover {
+    background-color: #ffffff27;
+}
+
+.account-container {
+    font-size: 0.6em;
+    display: flex;
+    align-items: center;
+}
+
+.profile-container {
+    padding: var(--spacing);
+    display: flex;
+    align-items: center;
+}
+
+.profile-icon-container {
+    margin-left: auto;
+    width: 11%;
+    padding: 0.2em;
+}
+
+.logout {
+    width: fit-content;
+}
+
+/* popout navigation sidebar */
+.nav-sidebar {
+    grid-area: sidebar;
+    background-color: #003844e2;
+    color: var(--secondary-color);
+    padding: var(--spacing);
+    display: none;
+    width: fit-content;
+}
+
+.menu {
+    position: sticky;
+    top: 150px; /* to not overlap with nav bar */
+    padding: 0 var(--spacing);
+    list-style: none;
+}
+
+.menu li {
+    padding: var(--spacing);
+}
+
+.menu a {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+.menu a:hover {
+    text-decoration: underline;
+}
+
+/* general contents of content container */
+.content-header {
+    text-align: center;
+}
+
+/* homepage contents */
+.message-stack {
+    max-width: 980px;
+    margin: 0 auto 1rem;
+}
+
+.site-message {
+    border-radius: 18px;
+    padding: 0.9rem 1.1rem;
+    margin-bottom: 0.85rem;
+    font-weight: 700;
+    text-align: center;
+    border: 1px solid transparent;
+}
+
+.site-message.success {
+    background-color: #e9fbf5;
+    border-color: #9dd7c2;
+    color: #0f5a4a;
+}
+
+.post-list {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    gap: 1.25rem;
+}
+
+.note-card {
+    text-align: center;
+    background: linear-gradient(180deg, #f9fffe 0%, #eef7f8 100%);
+    border: 1px solid #c7dfdc;
+    border-radius: 24px;
+    box-shadow: 0 16px 36px rgba(0, 56, 68, 0.08);
+    padding: 1.5rem 1.4rem;
+}
+
+.note-card-tag {
+    margin: 0 0 0.65rem;
+    font-size: 0.72em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #2c6a73;
+}
+
+.note-card-title {
+    margin: 0;
+    color: var(--primary-color);
+}
+
+.note-card-meta {
+    margin: 0.5rem 0 0;
+    font-weight: 700;
+}
+
+.note-card-submeta {
+    margin: 0.3rem 0 0;
+    color: #49656d;
+}
+
+.note-card-description {
+    margin: 1rem auto 0;
+    max-width: 34rem;
+    line-height: 1.45;
+}
+
+.note-card-description-muted {
+    color: #67818a;
+    font-style: italic;
+}
+
+.note-card-date {
+    margin: 1rem 0 0;
+    font-size: 0.72em;
+    color: #5b767e;
+}
+
+.post-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.inline-form {
+    display: inline-flex;
+    margin: 0;
+}
+
+/* search form styling */
+.search-toggle-btn {
+    font-size: 0.8em;
+    background-color: transparent;
+}
+
+.search-toggle-btn:hover {
+    background-color: #69ebd150;
+}
+
+.search-toggle-btn:active {
+    background-color: #69ebd184;
+}
+
+.search-form {
+    display: none;
+    margin: var(--spacing);
+}
+
+.search-form-field {
+    margin: var(--spacing);
+}
+
+.search-btn {
+    justify-self: center;
+}
+
+/* create post form */
+.create-post-shell {
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.create-post-intro {
+    text-align: center;
+    max-width: 40rem;
+    margin: 0 auto 1.5rem;
+    color: #31515a;
+}
+
+.note-form {
+    background: linear-gradient(180deg, #f6fffd 0%, #eef7f8 100%);
+    border: 1px solid #cbe2e0;
+    border-radius: 24px;
+    box-shadow: 0 18px 45px rgba(0, 56, 68, 0.08);
+    padding: 1.5rem;
+}
+
+.note-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.25rem;
+}
+
+.note-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.note-form-field-wide {
+    grid-column: 1 / -1;
+}
+
+.note-form-field label {
+    font-size: 0.8em;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.note-form-field input,
+.note-form-field select,
+.note-form-field textarea {
+    width: 100%;
+    border: 1px solid #aacbc8;
+    border-radius: 14px;
+    background-color: #ffffff;
+    color: var(--text-color);
+    font: inherit;
+    padding: 0.8rem 0.95rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.note-form-field input:focus,
+.note-form-field select:focus,
+.note-form-field textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(105, 235, 208, 0.22);
+    transform: translateY(-1px);
+}
+
+.note-form-field textarea {
+    min-height: 9rem;
+    resize: vertical;
+}
+
+.note-form-field input[type="file"] {
+    padding: 0.7rem;
+    background-color: #fbfffe;
+}
+
+.field-help {
+    font-size: 0.7em;
+    color: #4f7078;
+}
+
+.field-error,
+.form-status {
+    margin: 0;
+    font-size: 0.75em;
+    color: var(--danger-color);
+}
+
+.form-errors {
+    margin-bottom: 1rem;
+    border-radius: 16px;
+    background-color: #fff1ef;
+    border: 1px solid #efc3bd;
+    color: var(--danger-color);
+    padding: 1rem 1.1rem;
+}
+
+.has-error input,
+.has-error select,
+.has-error textarea {
+    border-color: var(--danger-color);
+    background-color: #fffaf9;
+}
+
+.note-form-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.note-form-actions .btn {
+    min-width: 12rem;
+}
+
+/* Shared Page Layout */
+.page-container {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Optional intro / spacing helper */
+.page-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* ===== Card Hover Enhancement (used everywhere) =====
+.note-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+} */
+
+/* .note-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 22px 55px rgba(0, 56, 68, 0.12);
+} */
+
+/* Slight Typography Improvements */
+.note-card-meta,
+.note-card-submeta {
+    font-size: 0.85em;
+    color: #4f7078;
+}
+
+.note-card-date {
+    font-size: 0.75em;
+    color: #4f7078;
+}
+
+/* Empty State */
+.post-list > p {
+    text-align: center;
+    color: #4f7078;
+    margin-top: 2rem;
+}
+
+/* About Page */
+.about-page {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.about-page p {
+    line-height: 1.5;
+}
+
+/* Intro text */
+.about-intro {
+    text-align: center;
+    max-width: 45rem;
+    margin: 0 auto 2rem;
+    color: #31515a;
+}
+
+/* Section cards */
+.about-section {
+    background: linear-gradient(180deg, #f6fffd 0%, #eef7f8 100%);
+    border: 1px solid #cbe2e0;
+    border-radius: 24px;
+    box-shadow: 0 18px 45px rgba(0, 56, 68, 0.08);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.about-section h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+/* Lists */
+.about-section ul {
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.about-section li {
+    margin-bottom: 0.5rem;
+}
+
+/* CTA */
+.about-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+/* button inside flex container */
+.about-cta .btn {
+    display: inline-flex;
+}
+
+
+/* Your Notes Page */
+.notes-page {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Header */
+.notes-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Card */
+.post-card,
+.note-card {
+    background: linear-gradient(180deg, #f6fffd 0%, #eef7f8 100%);
+    border: 1px solid #cbe2e0;
+    border-radius: 24px;
+    box-shadow: 0 18px 45px rgba(0, 56, 68, 0.08);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Title */
+.note-title {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+/* Meta text */
+.note-meta {
+    color: #31515a;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Description */
+.note-desc {
+    margin: 0.5rem 0 1rem;
+}
+
+/* Date */
+.note-date {
+    font-size: 0.8rem;
+    color: #6b8b91;
+}
+
+/* Actions row */
+.post-actions {
+    margin-top: 1rem;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Keep buttons aligned */
+.post-actions .btn {
+    display: inline-flex;
+}
+
+/* Delete button */
+.danger-btn {
+    background: #e74c3c;
+}
+
+.danger-btn:hover {
+    background: #c0392b;
+}
+
+/* Empty state */
+.empty-msg {
+    text-align: center;
+    color: #31515a;
+    margin-top: 2rem;
+}
+
+
+/* Post Details Page */
+
+.post-page {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Header */
+.post-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+
+/* Metadata block */
+.post-meta {
+    line-height: 1.6;
+    color: #31515a;
+}
+
+/* Description */
+.post-desc {
+    margin-top: 1rem;
+}
+
+/* Section title */
+.section-title {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+/* Preview box */
+.preview-container {
+    margin-top: 1rem;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #cbe2e0;
+}
+
+/* Actions row */
+.post-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Keep buttons aligned */
+.post-actions .btn {
+    display: inline-flex;
+}
+
+/* Danger button */
+.danger-btn {
+    background: #e74c3c;
+}
+
+.danger-btn:hover {
+    background: #c0392b;
+}
+
+.danger-btn:active {
+    background: #e74c3c;
+}
+
+/* Login Page */
+
+.login-page {
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* form layout */
+.login-page form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* form fields spacing */
+.login-page form p {
+    margin-bottom: 1rem;
+}
+
+/* Django input styling */
+.login-page input,
+.login-page select,
+.login-page textarea {
+    width: 100%;
+    border: 1px solid #aacbc8;
+    border-radius: 14px;
+    background-color: #ffffff;
+    color: var(--text-color);
+    font: inherit;
+    padding: 0.8rem 0.95rem;
+    margin-top: 0.3rem;
+}
+
+/* focus effect */
+.login-page input:focus,
+.login-page select:focus,
+.login-page textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(105, 235, 208, 0.22);
+}
+
+/* login button center */
+.login-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+/* links under form */
+.login-links {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #31515a;
+    font-size: 0.95rem;
+}
+
+.login-links a {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-links a:hover {
+    text-decoration: underline;
+}
+
+/* SIGNUP PAGE */
+
+.signup-page {
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* form layout */
+.signup-page form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Django default <p> wrappers */
+.signup-page form p {
+    margin-bottom: 1rem;
+}
+
+/* inputs from  form */
+.signup-page input,
+.signup-page select,
+.signup-page textarea {
+    width: 100%;
+    border: 1px solid #aacbc8;
+    border-radius: 14px;
+    background-color: #ffffff;
+    color: var(--text-color);
+    font: inherit;
+    padding: 0.8rem 0.95rem;
+    margin-top: 0.3rem;
+}
+
+/* focus state */
+.signup-page input:focus,
+.signup-page select:focus,
+.signup-page textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(105, 235, 208, 0.22);
+}
+
+/* button alignment */
+.signup-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+/* links under form */
+.signup-links {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #31515a;
+    font-size: 0.95rem;
+}
+
+.signup-links a {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.signup-links a:hover {
+    text-decoration: underline;
+}
+
+
+/* Signup Page */
+.signup-page {
+    max-width: 500px;
+    margin: 2rem auto;
+    width: 100%;
+}
+
+/* form layout */
+.signup-page form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* spacing between form fields */
+.signup-page form p {
+    margin-bottom: 1.8rem;
+}
+
+/* remove extra spacing on last field */
+.signup-page form p:last-of-type {
+    margin-bottom: 0.5rem;
+}
+
+/* inputs */
+.signup-page input,
+.signup-page select,
+.signup-page textarea {
+    width: 100%;
+    border: 1px solid #aacbc8;
+    border-radius: 14px;
+    background-color: #ffffff;
+    color: var(--text-color);
+    font: inherit;
+    padding: 0.8rem 0.95rem;
+    margin-top: 0.3rem;
+}
+
+/* focus effect */
+.signup-page input:focus,
+.signup-page select:focus,
+.signup-page textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(105, 235, 208, 0.22);
+}
+
+/* signup button alignment */
+.signup-page .btn {
+    align-self: center;
+    margin-top: 1rem;
+}
+
+/* links under form */
+.signup-links {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #31515a;
+    font-size: 0.95rem;
+}
+
+.signup-links a {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.signup-links a:hover {
+    text-decoration: underline;
+}
+
+/* mobile portrait layout (479px or less */
+@media only screen and (max-width: 479px) {
+    body {
+        grid-template-areas:
+        "header"
+        "nav"
+        "sidebar-main"
+        "footer";
+    }
+    
+    .content-container {
+        grid-area: sidebar-main;
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-sidebar {
+        grid-area: sidebar-main;
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        background-color: #003844f9;
+        text-align: center;
+        font-size: 1.5em;
+    }
+
+    .nav-container {
+        z-index: 3
+    }
+
+    .note-form {
+        padding: 1rem;
+    }
+
+    .note-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .note-form-field-wide {
+        grid-column: auto;
+    }
+}
+
+
+/* mobile landscape layout (480px to 767px) */
+@media only screen and (min-width: 480px) {
+    .site-name-large {
+        font-size: 2em;
+    }
+
+    .content-container {
+        padding: var(--spacing) 4em;
+    }
+
+    .menu-btn {
+        width: 8%;
+    }
+    
+    .account-container {
+        font-size: 0.9em;
+    }
+}
+
+/* tablet layout (768px to 1023px) */
+@media only screen and (min-width: 768px) {
+    body {
+        font-size: 1.8rem;
+    }  
+}
+
+/* desktop layout (1024px or more) */
+@media only screen and (min-width: 1024px) {
+    .content-container {
+        padding: var(--spacing) 8em;
+    }
+
+    .menu-btn {
+        width: 5%;
+    }
 }

@@ -36,5 +36,6 @@ npm install
 - Pagnation (to reduce redering costs): https://www.slingacademy.com/article/implement-pagination-express-js/
 - Using express-validator: https://betterstack.com/community/guides/scaling-nodejs/express-validator-nodejs/
 - XSS sanitizer library: https://www.npmjs.com/package/express-xss-sanitizer
+- Sanitizer for URL: https://github.com/validatorjs/validator.js#sanitizers
 ### Images
 - Favicon generator: https://favicon.io/favicon-converter/
