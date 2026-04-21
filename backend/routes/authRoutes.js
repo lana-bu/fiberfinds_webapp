@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { registerUserRules } from '../middleware/validation/userValidation.js'
 import { validate } from '../middleware/validation/validate.js'
+import auth from '../middleware/auth.js';
 import { User } from '../models/User.js';
 
 const router = Router();
@@ -66,11 +67,31 @@ router.post('/login', async (req, res) => {
       maxAge: 8 * 60 * 60 * 1000,  // 8 hours in milliseconds, matching the JWT expiry
     });
 
-    res.json({ message: 'Login successful' });
+    res.json({ message: 'Login successful', user: {id: user._id, username: user.username} });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: 'Server error' });
   }
+});
+
+// check if user still logged in after refresh
+router.get('/me', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) {
+      return res.status(401).json({ message: 'User not found' });
+    }
+    res.json({ user: { id: user._id, username: user.username } });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// logout user
+router.post('/logout', (req, res) => {
+    res.clearCookie('token');
+    res.json({ message: 'Logged out' });
 });
 
 export default router;
