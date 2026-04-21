@@ -173,7 +173,7 @@ body {
 /* popout navigation sidebar */
 .nav-sidebar {
     grid-area: sidebar;
-    background-color: #003844e2;
+    background-color: #824670eb;
     color: var(--secondary-color);
     padding: var(--spacing);
     display: none;
