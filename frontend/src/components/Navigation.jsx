@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { IoMenu } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { AuthContext } from '../context/AuthContext';
 
@@ -39,11 +40,9 @@ const Navigation = () => {
 
   return (
     <>
-      <nav>
+      <nav className='nav-container'>
         <button id="menu-btn" className="btn menu-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-              <path className="icon menu-icon" d="M120-240v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"/>
-          </svg>
+          <IoMenu className='menu-icon'/>
         </button>
         <div className="account-container">
           {accountContent}
