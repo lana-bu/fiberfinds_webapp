@@ -148,6 +148,11 @@ body {
     background-color: #ffffff27;
 }
 
+.menu-icon {
+  font-size: 2em;
+  color: var(--secondary-color);
+}
+
 .account-container {
     font-size: 0.6em;
     display: flex;
