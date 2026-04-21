@@ -215,7 +215,7 @@ body {
     font-size: 1.1em;
     border: 1px solid #f3d5e5;
     border-radius: 24px;
-    padding: 1.5em;
+    padding: 1em;
     margin-bottom: 1.5em;
 }
 
@@ -230,8 +230,7 @@ body {
 
 .post-card {
   text-align: center;
-  width: 85%;
-  align-self: center;
+  width: 95%;
 }
 
 .card-tag {
@@ -258,7 +257,7 @@ body {
 }
 
 .card-image {
-  max-width: 50%;
+  max-width: 70%;
   margin: 1em;
 }
 
@@ -823,6 +822,19 @@ body {
 
     .menu-btn {
         width: 5%;
+    }
+
+    .card {
+      padding: 1.5em;
+    }
+
+    .post-card {
+      text-align: center;
+      width: 85%;
+    }
+
+    .card-image {
+      max-width: 50%;
     }
 
     .post-form-grid {
