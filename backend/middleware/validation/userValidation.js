@@ -1,12 +1,12 @@
-import { body, validationResult } from 'express-validator';
+import { body } from 'express-validator';
 
 export const registerUserRules = [
     // validate username
     body('username')
-    .notEmpty().withMessage('Username is required')
-    .trim() // remove leading and trailing whitespace
-    .custom(value => !/\s/.test(value)).withMessage('No spaces are allowed in your password')
-    .isLength({ min: 2, max: 30}).withMessage('Username must be between 2 and 30 characters long'),
+        .trim() // remove leading and trailing whitespace
+        .notEmpty().withMessage('Username is required')
+        .custom(value => !/\s/.test(value)).withMessage('No spaces are allowed in your username')
+        .isLength({ min: 2, max: 30}).withMessage('Username must be between 2 and 30 characters long'),
 
     // validate email
     body('email')
@@ -22,29 +22,4 @@ export const registerUserRules = [
         .matches(/[A-Z]/).withMessage("Password must contain at least one uppercase letter")
         .matches(/[0-9]/).withMessage("Password must contain at least one number"),
 ]
-
-export const validateUser = (req, res, next) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-        // Group errors by field name
-        const formattedErrors = {};
-
-        errors.array().forEach(error => {
-            if (!formattedErrors[error.path]) {
-                formattedErrors[error.path] = [];
-            }
-
-            formattedErrors[error.path].push(error.msg);
-        });
-
-        return res.status(400).json({ 
-            success: false,
-            message: "Validation failed",
-            errors: formattedErrors
-        });
-    }
-
-    next();
-};
 

@@ -64,7 +64,7 @@ router.get('/your-posts', auth, async (req, res) => {
 });
 
 // create a new post
-router.post('/create-post', auth, uploadFields, async (req, res) => {
+router.post('/create-post', auth, uploadFields, createOrEditPostRules, validate, async (req, res) => {
     try {
         const { type, title, description, skill, creator, uploadType, link } = req.body;
 
@@ -128,7 +128,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // edit one of your (current user) posts by ID
-router.put('/:id', auth, uploadFields, async (req, res) => {
+router.put('/:id', auth, uploadFields, createOrEditPostRules, validate, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
 

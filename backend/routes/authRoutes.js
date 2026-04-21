@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { registerUserRules, validateUser } from '../middleware/validation/userValidation.js'
+import { registerUserRules } from '../middleware/validation/userValidation.js'
+import { validate } from '../middleware/validation/validate.js'
 import { User } from '../models/User.js';
 
 const router = Router();
 
 // Register User
-router.post('/signup', registerUserRules, validateUser, async (req, res) => {
+router.post('/signup', registerUserRules, validate, async (req, res) => {
   try {    
     const { username, email, password } = req.body;
     
