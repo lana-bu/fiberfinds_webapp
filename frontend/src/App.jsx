@@ -11,19 +11,19 @@ function App() {
     fetchTasks();
   }, []);
 
-  const fetchTasks = async () => {
-    const res = await axios.get(`${url}/api/tasks`);
+  const fetchPosts = async () => {
+    const res = await axios.get(`${url}/api/posts`);
     setTasks(res.data);
   };
 
   const addTask = async () => {
-    const res = await axios.post(`${url}/api/tasks`, { title });
+    const res = await axios.post(`${url}/api/posts`, { title });
     setTasks([...tasks, res.data]);
     setTitle('');
   };
 
   const deleteTask = async (id) => {
-    await axios.delete(`${url}/api/tasks/${id}`);
+    await axios.delete(`${url}/api/posts/${id}`);
     setTasks(tasks.filter(task => task._id !== id));
   };
 
