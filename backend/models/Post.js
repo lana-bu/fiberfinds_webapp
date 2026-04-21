@@ -46,7 +46,7 @@ const PostSchema = new mongoose.Schema(
             }
         },
         file: {
-            type: String,
+            type: File,
             required: function() { 
                 return this.uploadType === 'file' || 'both';
             }

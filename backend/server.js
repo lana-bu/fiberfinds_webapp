@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import { connectToMongo } from './config/db.js';
 import { setCsrfToken, validateCsrfToken } from './middleware/csrf.js';
 import authRoutes from './routes/authRoutes.js';
+import postsRoutes from './routes/postsRoutes.js';
 
 const app = express();
 
@@ -16,7 +17,8 @@ app.use(express.json()); // built-in body parser
 app.use(cookieParser());
 app.use(setCsrfToken); // set CSRF cookie on every response
 app.use('/api/auth', authRoutes); // no CSRF validation (login/signup)
-// create about page route
+app.use('/api/posts', validateCsrfToken, postsRoutes); // CSRF validated
+// create about page route maybe?
 
 const port = process.env.PORT || 3000;
 const url = process.env.MONGO_URL;
