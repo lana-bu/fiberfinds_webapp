@@ -1,20 +1,10 @@
 import { Router } from 'express';
+import fs from 'fs/promises';
 import auth from '../middleware/auth.js';
+import upload from '../config/upload.js';
 import { Post } from '../models/Post.js';
 
 const router = Router()
-
-// TODO move to different file
-// check if search has been made
-function isQueryEmpty(query) {
-    const queryCount = Object.keys(query).length;
-    const noRealQueries = Object.values(query).every(value => value === '' || value == null);
-    if (queryCount === 0 || noRealQueries) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 // return all posts
 router.get('/', async (req, res) => {
@@ -147,7 +137,14 @@ router.delete('/:id', auth, async (req, res) => {
         } else if (post.userId.toString() !== req.user.id) {
             return res.status(403).json({ message: 'You are not allowed to delete this post' });
         } else {
-            // TODO delete actual files before deleting post (which only holds file paths)
+            // delete post's files
+            if (post.image) {
+                await fs.unlink(post.image).catch(() => {});
+            }
+            if (post.file) {
+                await fs.unlink(post.file).catch(() => {});
+            }
+
             await Post.findByIdAndDelete(req.params.id);
             res.json({ message: 'Post deleted' });
         }
