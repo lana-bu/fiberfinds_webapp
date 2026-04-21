@@ -2,7 +2,7 @@ import PostItem from './PostItem';
 
 function PostList({ posts, showActions, onDelete, emptyMessage }) {
     if (posts.length === 0) {
-        return <p>{emptyMessage || 'No posts found.'}</p>;
+        return <p className='empty-list'>{emptyMessage || 'No posts found.'}</p>;
     }
 
     return (

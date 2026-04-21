@@ -53,30 +53,24 @@ function Home() {
 
     return (
         <>
-            <h1>Home</h1>
+            <h1 className="content-header">Home</h1>
 
             <Search onSearch={fetchPosts} />
 
-            {loading && <p>Loading...</p>}
+            {loading && <p className="empty-list">Loading...</p>}
 
             {!loading && (
                 <>
                     <PostList posts={posts} />
 
                     {totalPages > 1 && (
-                        <div>
-                            <button
-                                onClick={() => fetchPosts(page - 1)}
-                                disabled={page <= 1}
-                            >
-                                Previous
+                        <div className='pagnation'>
+                            <button className="btn" onClick={() => fetchPosts(page - 1)} disabled={page <= 1}>
+                                &lt; Prev
                             </button>
-                            <span> Page {page} of {totalPages} </span>
-                            <button
-                                onClick={() => fetchPosts(page + 1)}
-                                disabled={page >= totalPages}
-                            >
-                                Next
+                            <span className="page-count"> Page {page} of {totalPages} </span>
+                            <button className="btn" onClick={() => fetchPosts(page + 1)} disabled={page >= totalPages}>
+                                Next &gt;
                             </button>
                         </div>
                     )}
