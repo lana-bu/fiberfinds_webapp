@@ -26,11 +26,13 @@ npm install
 - Default values for data fields: https://www.slingacademy.com/article/mongodb-set-default-value-for-a-field-with-examples/
 - Define set list of valid values for field using enum: https://www.geeksforgeeks.org/mongodb/how-to-create-and-use-enum-in-mongoose/
 - Foreign key reference: https://stackoverflow.com/questions/26008555/creating-a-foreign-key-relationship-in-mongoose
-- Conditional required by passing a function: https://stackoverflow.com/questions/67920909/mongoose-conditional-required-field
 - Extracting form data from request body: https://www.xjavascript.com/blog/how-to-get-data-passed-from-a-form-in-express-node-js/
 - Search for phrase in string value of field: https://thecodebuzz.com/mongodb-get-record-document-that-contain-a-string-matching/
 - MongoDB or operator (for find function): https://www.mongodb.com/docs/manual/reference/operator/query/or/?msockid=0dc208bc99586b0f07451b3798cb6acd
 - HTTP status code meanings: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
 - Adding key-value pair to array: https://www.geeksforgeeks.org/javascript/how-to-add-key-value-pair-to-a-javascript-object/
+- Deleting a file: https://www.geeksforgeeks.org/node-js/node-js-fs-unlink-method/
+- Restricting file types: https://www.xjavascript.com/blog/multer-file-type-typescript/
+- Pagnation (to reduce redering costs): https://www.slingacademy.com/article/implement-pagination-express-js/
 ### Images
 - Favicon generator: https://favicon.io/favicon-converter/
