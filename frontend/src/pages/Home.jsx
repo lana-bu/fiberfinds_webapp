@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { IoSearch } from "react-icons/io5";
+import Search from '../components/Search';
 import PostList from '../components/PostList';
 
 const url = import.meta.env.VITE_API_URL;
@@ -58,37 +60,7 @@ function Home() {
         <>
             <h1>Home</h1>
 
-            <form onSubmit={handleSearch}>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Search posts..."
-                        value={q}
-                        onChange={(e) => setQ(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <select value={type} onChange={(e) => setType(e.target.value)}>
-                        <option value="">All types</option>
-                        <option value="crochet">Crochet</option>
-                        <option value="knitting">Knitting</option>
-                        <option value="sewing">Sewing</option>
-                        <option value="weaving">Weaving</option>
-                        <option value="embroidery">Embroidery</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div>
-                    <select value={skill} onChange={(e) => setSkill(e.target.value)}>
-                        <option value="">All skill levels</option>
-                        <option value="beginner">Beginner</option>
-                        <option value="intermediate">Intermediate</option>
-                        <option value="advanced">Advanced</option>
-                    </select>
-                </div>
-                <button type="submit">Search</button>
-                <button type="button" onClick={handleClear}>Clear</button>
-            </form>
+            <Search onSearch={fetchPosts} />
 
             {loading && <p>Loading...</p>}
 

@@ -112,7 +112,7 @@ body {
 
 .btn:hover {
     cursor: pointer;
-    background-color: #5bcfb8;
+    background-color: #6ae6bc;
 }
 
 .btn:active {
@@ -121,11 +121,11 @@ body {
 
 .danger-btn {
     background-color: var(--danger-color);
-    color: var(--secondary-color)
+    color: #ffffff;
 }
 
 .danger-btn:hover {
-    background-color: #e15b4c;
+    background-color: #da4e65;
 }
 
 .danger-btn:active {
