@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import path from 'path';
 import fs from 'fs/promises';
 import auth from '../middleware/auth.js';
 import { createOrEditPostRules } from '../middleware/validation/postValidation.js'
@@ -7,6 +8,11 @@ import { handleUpload } from '../middleware/upload.js';
 import { Post } from '../models/Post.js';
 
 const router = Router()
+
+// convert absolute file path to relative URL path (e.g. "uploads/file.png")
+function toRelativePath(absolutePath) {
+    return 'uploads/' + path.basename(absolutePath);
+}
 
 const uploadFields = handleUpload([
     { name: 'image', maxCount: 1 },
@@ -73,11 +79,11 @@ router.post('/create-post', auth, uploadFields, createOrEditPostRules, validate,
         let image = null;
         let file = null;
         if (req.files) {
-            if (req.files.image && req.files.image[0]) { // image array exists, and first elemtn of it exists
-                image = req.files.image[0].path; // save its path for postData
+            if (req.files.image && req.files.image[0]) {
+                image = toRelativePath(req.files.image[0].path);
             }
-            if (req.files.file && req.files.file[0]) { // file array exists, and first elemtn of it exists
-                file = req.files.file[0].path; // save its path for postData
+            if (req.files.file && req.files.file[0]) {
+                file = toRelativePath(req.files.file[0].path);
             }
         }
 
@@ -184,7 +190,7 @@ router.put('/:id', auth, uploadFields, createOrEditPostRules, validate, async (r
                     }
 
                     // save updated path
-                    updates[field] = req.files[field][0].path;
+                    updates[field] = toRelativePath(req.files[field][0].path);
                 }
             }
 
