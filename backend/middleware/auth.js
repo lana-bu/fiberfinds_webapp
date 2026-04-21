@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-export function auth(req, res, next) {
+function auth(req, res, next) {
   const header = req.headers.authorization || '';
   const [scheme, tokenFromHeader] = header.split(' ');
   const tokenFromCookie = req.cookies?.token;
@@ -18,3 +18,5 @@ export function auth(req, res, next) {
     return res.status(401).json({ message: msg });
   }
 }
+
+export default auth;

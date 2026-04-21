@@ -34,5 +34,6 @@ npm install
 - Deleting a file: https://www.geeksforgeeks.org/node-js/node-js-fs-unlink-method/
 - Restricting file types: https://www.xjavascript.com/blog/multer-file-type-typescript/
 - Pagnation (to reduce redering costs): https://www.slingacademy.com/article/implement-pagination-express-js/
+- Using express-validator: https://betterstack.com/community/guides/scaling-nodejs/express-validator-nodejs/
 ### Images
 - Favicon generator: https://favicon.io/favicon-converter/
