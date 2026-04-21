@@ -38,10 +38,20 @@ const Navigation = () => {
     );
   }
 
+  const toggleSidebar = () => {
+        const sidebar = document.getElementById("nav-sidebar");
+
+        if (sidebar.style.display == "block") {
+            sidebar.style.display = "none";
+        } else {
+            sidebar.style.display = "block";
+        }
+    };
+
   return (
     <>
       <nav className='nav-container'>
-        <button id="menu-btn" className="btn menu-btn">
+        <button className="btn menu-btn" onClick={toggleSidebar}>
           <IoMenu className='menu-icon'/>
         </button>
         <div className="account-container">
