@@ -2,11 +2,31 @@
 Fiber Finds is a web platform for people to browse and share various fiber art patterns and tutorials. I designed this web application using Node.js, MongoDB, and React for my Project 4 assignment in CIS 435 (Web Technology) at the University of Michigan-Dearborn.
 
 ## Run Instructions
-(run instructions)
+### Step 1: Set up environment variables
 
+### Step 2: Open two terminals
+The back-end and the front-end run on two different ports, so you need to start them separately.
+- In one terminal, open the fiberfinds_webapp directory and then enter the backend folder.
+  ```bash
+  cd backend
+  ```
+- In the other terminal, open the fiberfinds_webapp directory again and then enter the frontend folder.
+  ```bash
+  cd frontend
+  ```
+
+### Step 3: Install dependencies
+Within both terminals (one inside the backend folder, the other inside the frontend folder), run the following command to dowlnoad all of the Node dependencies for the project:
 ```bash
 npm install
 ```
+
+### Step 4: Run project
+Within both terminals (one inside the backend folder, the other inside the frontend folder), run the following command to start the project:
+```bash
+npm run dev
+```
+After running the commands, follow the link provided in the frontend terminal (http://localhost:5173/) to view and use the web application.
 
 ## Sources
 ### Code Help
