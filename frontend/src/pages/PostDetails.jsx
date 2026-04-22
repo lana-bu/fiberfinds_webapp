@@ -48,51 +48,65 @@ function PostDetails() {
 
     return (
         <>
-            <h1>{post.title}</h1>
-
-            <div>
-                <p>Type: {post.type}</p>
-                <p>Skill Level: {post.skill}</p>
-                <p>Pattern Creator: {post.creator}</p>
-                <p>Posted: {new Date(post.createdAt).toLocaleDateString()}</p>
-            </div>
+            <h1 className='content-header'>{post.title}</h1>
 
             {post.description && (
-                <div>
-                    <h2>Description</h2>
+                <div className='card'>
+                    <h2 className='card-heading'>Description</h2>
                     <p>{post.description}</p>
                 </div>
             )}
 
-            {post.image && (
-                <div>
-                    <h2>Image</h2>
-                    <img src={`${url}/${post.image}`} alt={post.title} style={{ maxWidth: '100%' }} />
-                </div>
-            )}
+            <div className='card'>
+                <h2 className='card-heading'>Info</h2>
+                <ul>
+                    <li>Type of fiber art: <strong>{post.type}</strong></li>
+                    <li>Skill level: <strong>{post.skill}</strong></li>
+                    <li>Creator of pattern: <strong>{post.creator}</strong></li>
+                </ul>
+                {post.image && (
+                    <div className=''>
+                        <img className='card-image details' src={`${url}/${post.image}`} alt={post.title} />
+                    </div>
+                )}
+                <p className='centered'>Posted on {new Date(post.createdAt).toLocaleDateString()} by {post.userId.username}</p>
+            </div>
 
-            {post.link && (
-                <div>
-                    <h2>Pattern Link</h2>
-                    <a href={post.link} target="_blank" rel="noopener noreferrer">{post.link}</a>
-                </div>
-            )}
+            <div className='card'>
+                <h2 className='card-heading'>Pattern</h2>
+                {post.link && (
+                    <div>
+                        <h3>Link</h3>
+                        <a href={post.link} target="_blank" rel="noopener noreferrer">{post.link}</a>
+                    </div>
+                )}
 
-            {post.file && (
-                <div>
-                    <h2>Pattern File</h2>
-                    <a href={`${url}/${post.file}`} target="_blank" rel="noopener noreferrer">
-                        Download File
-                    </a>
-                </div>
-            )}
+                {post.file && (
+                    <div>
+                        <h3>Pattern File Preview</h3>
+                        <div class="preview-container">
+                            <object data={`${url}/${post.file}`} width="100%" height="600">
+                                <p>
+                                    Unable to preview file,
+                                    <a href={`${url}/${post.file}`} target='_blank' rel='noopener noreferrer'>view here</a> instead.
+                                </p>
+                            </object>
+                        </div>
+                        <div className='card-actions'>
+                            <a class="btn-link" href={`${url}/${post.file}`} download>
+                                <button class="btn">Download</button>
+                            </a>
+                        </div>
+                    </div>
+                )}
+            </div>
 
             {isOwner && (
-                <div>
-                    <Link to={`/edit-post/${post._id}`}>
-                        <button>Edit</button>
+                <div class='card-actions'>
+                    <Link className='btn-link' to={`/edit-post/${post._id}`}>
+                        <button className='btn'>Edit</button>
                     </Link>
-                    <button onClick={handleDelete}>Delete</button>
+                    <button className='btn danger-btn' onClick={handleDelete}>Delete</button>
                 </div>
             )}
         </>

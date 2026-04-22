@@ -213,6 +213,10 @@ body {
   align-items: center;
 }
 
+.centered {
+  text-align: center;
+}
+
 /* cards */
 .card {
     background: linear-gradient(180deg, #ffffff 0%, #fbe7f2 100%);
@@ -273,6 +277,12 @@ body {
   align-items: center;
   justify-content: center;
   margin-top: var(--spacing);
+}
+
+.details{
+  display: block;
+  margin: 0 auto;
+  max-width: 90%;
 }
 
 /* form styling */
@@ -580,10 +590,10 @@ body {
 
 /* Preview box */
 .preview-container {
-    margin-top: 1rem;
+    margin-top: 1em;
     border-radius: 16px;
     overflow: hidden;
-    border: 1px solid #cbe2e0;
+    border: 3px solid #c49bb1;
 }
 
 /* Actions row */
@@ -820,7 +830,6 @@ body {
         position: relative;
         z-index: 1;
         width: 100%;
-        text-align: center;
     }
 
     .nav-sidebar {
@@ -839,6 +848,10 @@ body {
 
     .post-form {
         padding: 0.2em;
+    }
+
+    .filters {
+      flex-direction: column;
     }
 }
 
