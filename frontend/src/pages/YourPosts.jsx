@@ -68,8 +68,14 @@ function YourPosts() {
                 <>
                     <PostList posts={posts} showActions={true} onDelete={handleDelete} emptyMessage="You haven't created any posts yet." />
 
+                    <div className="card-actions">
+                        <Link className="btn-link" to="/create-post">
+                            <button className="btn">Create Post</button>
+                        </Link>
+                    </div>
+
                     {totalPages > 1 && (
-                        <div className='pagnation'>
+                        <div className='pagination'>
                             <button className="btn" onClick={() => fetchPosts(page - 1)} disabled={page <= 1}>
                                 &lt; Prev
                             </button>
