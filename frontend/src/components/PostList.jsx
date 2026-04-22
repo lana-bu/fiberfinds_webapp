@@ -8,12 +8,7 @@ function PostList({ posts, showActions, onDelete, emptyMessage }) {
     return (
         <div className="post-list">
             {posts.map(post => (
-                <PostItem
-                    key={post._id}
-                    post={post}
-                    showActions={showActions}
-                    onDelete={onDelete}
-                />
+                <PostItem key={post._id} post={post} showActions={showActions} onDelete={onDelete} />
             ))}
         </div>
     );
