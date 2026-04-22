@@ -1,5 +1,5 @@
 # fiberfinds_webapp
-(description)
+Fiber Finds is a web platform for people to browse and share various fiber art patterns and tutorials. I designed this web application using Node.js, MongoDB, and React for my Project 4 assignment in CIS 435 (Web Technology) at the University of Michigan-Dearborn.
 
 ## Run Instructions
 (run instructions)
