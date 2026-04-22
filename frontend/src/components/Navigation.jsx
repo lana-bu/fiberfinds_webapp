@@ -1,14 +1,21 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { IoMenu } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { AuthContext } from '../context/AuthContext';
 
 const Navigation = () => {
   const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   let accountContent;
   let userLinks;
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/');
+  };
+
 
   if (user) {
     accountContent = (
@@ -17,7 +24,7 @@ const Navigation = () => {
             <CgProfile/>
             <span className="username">{user.username}</span>
         </div>
-        <button className="btn" onClick={logout}>Log Out</button>
+        <button className="btn" onClick={handleLogout}>Log Out</button>
       </>
     );
     userLinks = (
