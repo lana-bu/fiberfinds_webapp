@@ -3,6 +3,11 @@ Fiber Finds is a web platform for people to browse and share various fiber art p
 
 ## Run Instructions
 ### Step 1: Set up environment variables
+(connect your mongo db atlas database, store uri and database name in .env)
+(generate 256 bit jwt secret and csrf secret using this website https://jwtsecrets.com/)
+(set NODE_ENV to development)
+(set PORT to 3000)
+(in front end env, set VITE_API_URL to http://localhost:3000)
 
 ### Step 2: Open two terminals
 The back-end and the front-end run on two different ports, so you need to start them separately.
