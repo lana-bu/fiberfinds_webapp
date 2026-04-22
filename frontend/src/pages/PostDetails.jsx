@@ -29,6 +29,22 @@ function PostDetails() {
         fetchPost();
     }, [id]);
 
+    const handleDownload = async () => {
+        try {
+            const res = await axios.get(`${url}/${post.file}`, { responseType: 'blob' });
+            const downloadUrl = window.URL.createObjectURL(res.data);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = post.file.split('/').pop();
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(downloadUrl);
+        } catch (err) {
+            console.error('Failed to download file:', err);
+        }
+    };
+
     const handleDelete = async () => {
         if (!window.confirm('Are you sure you want to delete this post?')) return;
 
@@ -86,7 +102,7 @@ function PostDetails() {
                 {post.file && (
                     <div>
                         <h3>Pattern File Preview</h3>
-                        <div class="preview-container">
+                        <div className="preview-container">
                             <object data={`${url}/${post.file}`} width="100%" height="600">
                                 <p>
                                     Unable to preview file,
@@ -95,16 +111,14 @@ function PostDetails() {
                             </object>
                         </div>
                         <div className='card-actions'>
-                            <a class="btn-link" href={`${url}/${post.file}`} download>
-                                <button class="btn">Download</button>
-                            </a>
+                            <button className="btn" onClick={handleDownload}>Download</button>
                         </div>
                     </div>
                 )}
             </div>
 
             {canEdit && (
-                <div class='card-actions'>
+                <div className='card-actions'>
                     <Link className='btn-link' to={`/edit-post/${post._id}`}>
                         <button className='btn'>Edit</button>
                     </Link>
