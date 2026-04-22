@@ -24,10 +24,10 @@ app.use('/api/posts', validateCsrfToken, postsRoutes); // CSRF validated
 // create about page route maybe?
 
 const port = process.env.PORT || 3000;
-const url = process.env.MONGO_URL;
+const uri = process.env.MONGO_URI;
 const dbName = process.env.MONGO_DB;
 
-connectToMongo(url, dbName)
+connectToMongo(uri, dbName)
   .then(() => {
     app.listen(port, () => {
     console.log(`API listening on http://localhost:${port}`);

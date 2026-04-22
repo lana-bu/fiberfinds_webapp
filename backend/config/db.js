@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
-export async function connectToMongo(url, dbName) {
-    if (!url) throw new Error('Missing MONGO_URL');
+export async function connectToMongo(uri, dbName) {
+    if (!uri) throw new Error('Missing MONGO_URI');
     if (!dbName) throw new Error('Missing MONGO_DB');
 
-    await mongoose.connect(url, { dbName });
+    await mongoose.connect(uri, { dbName });
     mongoose.connection.on('connected', () => {
         console.log(`Mongo connected to ${dbName}`);
     });
