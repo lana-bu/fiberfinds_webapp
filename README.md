@@ -9,6 +9,11 @@ Fiber Finds is a web platform for people to browse and share various fiber art p
 (set NODE_ENV to development)
 (set PORT to 3000)
 (in front end env, set VITE_API_URL to http://localhost:3000)
+(have mongodb database tools installed and on path environment)
+
+```bash
+mongorestore --uri="your-mongodb-atlas-cluster-uri" --db=fiber_finds_app /path/to/backup/fiber_finds_app-2026_4_22/fiber_finds_app/
+```
 
 ### Step 2: Open two terminals
 The back-end and the front-end run on two different ports, so you need to start them separately.
