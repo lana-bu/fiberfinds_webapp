@@ -76,5 +76,6 @@ After running the commands, follow the link provided in the frontend terminal (h
 - React icons: https://react-icons.github.io/react-icons/
 - Optional chaining operator (?.): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
 - Disabled button styling: https://www.tutorialpedia.org/blog/csstricks-button-disabled/
+- Using mongodump and mongorestore: https://oneuptime.com/blog/post/2026-03-31-mongodb-mongodump-mongorestore/view
 ### Images
 - Favicon generator: https://favicon.io/favicon-converter/
