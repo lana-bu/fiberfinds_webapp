@@ -3,17 +3,21 @@ Fiber Finds is a web platform for people to browse and share various fiber art p
 
 ## Run Instructions
 ### Step 1: Set up environment variables
-(open project in IDE where you can add files and make edits easily)
-(connect your mongo db atlas database, store uri and database name in .env)
-(generate 256 bit jwt secret and csrf secret using this website https://jwtsecrets.com/)
-(set NODE_ENV to development)
-(set PORT to 3000)
-(in front end env, set VITE_API_URL to http://localhost:3000)
-(have mongodb database tools installed and on path environment)
+Open the project in an IDE like VS Code where you can easily create and edit files. Within the backend folder of the project, create a file called .env to store the back-end environment variables.
+- Store your MongoDB Atlas cluster connection string in a variable called MONGO_URI. You can find this string by going to your cluster in MongoDB Atlas and clicking Connect. Select "Drivers", turn off "SRV Connection String", and copy the connection string to paste in the MONGO_URI environment variable.
+- Create an environment variable called MONGO_DB and assign "fiber_finds_app" to it. While doing this, make sure you create a database called "fiber_finds_app" in your cluster which will store the app's data.
+- Create an environment variable called NODE_ENV and assign "development" to it.
+- Create an environment variable called PORT and assign 3000 to it (or whatever port number you want the back-end server to run on).
+- Create an environment variable called JWT_SECRET. Go to https://jwtsecrets.com/ to generate a random 256-bit security string and assign the string to the environment variable.
+- Create an environment variable called CSRF_SECRET. Go to https://jwtsecrets.com/ to generate another random 256-bit security string and assign the string to the environment variable.
+Within the frontend folder of the project, create a file called .env to store the front-end environment variables.
+- Create an environment variable called VITE_API_URL and assign http://localhost:3000 to it (if you used a different number for PORT in backend's .env file, replace 3000 with that number instead).
 
-```bash
-mongorestore --uri="your-mongodb-atlas-cluster-uri" --db=fiber_finds_app /path/to/backup/fiber_finds_app-2026_4_22/fiber_finds_app/
-```
+### Optional step: Restore database with backup data
+This step is only for my project submission (the database backup is not available on the GitHub). Make sure you have MongoDB Database Tools installed and set on your machine's PATH environment variable (follow the steps at this website for help: https://www.mongodb.com/docs/database-tools/installation/?operating-system=windows&package-type=msi&msockid=0dc208bc99586b0f07451b3798cb6acd).
+- Open a terminal on your machine.
+- Run the following command, replacing "your-mongodb-atlas-cluster-uri" with the connection string you gathered in Step 1 and "/path/to" with the path to the directory where you extracted the submission folder.
+After completing this step, your finder_fiber_app database should be populated with the data that my finder_fiber_app database contained as of the backup date.
 
 ### Step 2: Open two terminals
 The back-end and the front-end run on two different ports, so you need to start them separately.
