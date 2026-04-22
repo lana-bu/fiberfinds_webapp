@@ -3,6 +3,7 @@ Fiber Finds is a web platform for people to browse and share various fiber art p
 
 ## Run Instructions
 ### Step 1: Set up environment variables
+(open project in IDE where you can add files and make edits easily)
 (connect your mongo db atlas database, store uri and database name in .env)
 (generate 256 bit jwt secret and csrf secret using this website https://jwtsecrets.com/)
 (set NODE_ENV to development)
