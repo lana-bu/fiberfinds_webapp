@@ -55,7 +55,7 @@ function EditPost() {
 
     const handleSubmit = async (formData) => {
         await axios.put(`${url}/api/posts/${id}`, formData);
-        navigate(`/post/${id}`);
+        navigate(`/your-posts`);
     };
 
     return (
