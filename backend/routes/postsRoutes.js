@@ -6,6 +6,7 @@ import { createOrEditPostRules } from '../middleware/validation/postValidation.j
 import { validate } from '../middleware/validation/validate.js'
 import { handleUpload } from '../middleware/upload.js';
 import { Post } from '../models/Post.js';
+import { User } from '../models/User.js';
 
 const router = Router()
 
@@ -135,14 +136,15 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// edit one of your (current user) posts by ID
+// edit a post by ID (owner or admin)
 router.put('/:id', auth, uploadFields, createOrEditPostRules, validate, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
+        const currentUser = await User.findById(req.user.id);
 
         if (!post) {
             return res.status(404).json({ message: 'Post does not exist' });
-        } else if (post.userId.toString() !== req.user.id) {
+        } else if (post.userId.toString() !== req.user.id && currentUser.role !== 'admin') {
             return res.status(403).json({ message: 'You are not allowed to edit this post' });
         } else {
             // only include fields that have actually changed
@@ -219,14 +221,15 @@ router.put('/:id', auth, uploadFields, createOrEditPostRules, validate, async (r
     }
 });
 
-// delete a specific post by ID
+// delete a specific post by ID (owner or admin)
 router.delete('/:id', auth, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
-        
+        const currentUser = await User.findById(req.user.id);
+
         if (!post) {
             return res.status(404).json({ message: 'Post does not exist' });
-        } else if (post.userId.toString() !== req.user.id) {
+        } else if (post.userId.toString() !== req.user.id && currentUser.role !== 'admin') {
             return res.status(403).json({ message: 'You are not allowed to delete this post' });
         } else {
             // delete post's files

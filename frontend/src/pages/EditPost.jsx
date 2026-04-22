@@ -42,6 +42,17 @@ function EditPost() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
+    const isOwner = post && user.id === post.userId._id;
+    const isAdmin = user.role === 'admin';
+    if (!isOwner && !isAdmin) {
+        return (
+            <>
+                <h1 className='content-header'>Edit Post</h1>
+                <p className='centered'>You are not allowed to edit this post.</p>
+            </>
+        );
+    }
+
     const handleSubmit = async (formData) => {
         await axios.put(`${url}/api/posts/${id}`, formData);
         navigate(`/post/${id}`);

@@ -45,6 +45,8 @@ function PostDetails() {
     if (!post) return <p>Post not found.</p>;
 
     const isOwner = user && user.id === post.userId._id;
+    const isAdmin = user && user.role === 'admin';
+    const canEdit = isOwner || isAdmin;
 
     return (
         <>
@@ -101,7 +103,7 @@ function PostDetails() {
                 )}
             </div>
 
-            {isOwner && (
+            {canEdit && (
                 <div class='card-actions'>
                     <Link className='btn-link' to={`/edit-post/${post._id}`}>
                         <button className='btn'>Edit</button>

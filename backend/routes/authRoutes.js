@@ -67,7 +67,7 @@ router.post('/login', async (req, res) => {
       maxAge: 8 * 60 * 60 * 1000,  // 8 hours in milliseconds, matching the JWT expiry
     });
 
-    res.json({ message: 'Login successful', user: {id: user._id, username: user.username} });
+    res.json({ message: 'Login successful', user: {id: user._id, username: user.username, role: user.role} });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: 'Server error' });
@@ -81,7 +81,7 @@ router.get('/me', auth, async (req, res) => {
     if (!user) {
       return res.status(401).json({ message: 'User not found' });
     }
-    res.json({ user: { id: user._id, username: user.username } });
+    res.json({ user: { id: user._id, username: user.username, role: user.role } });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ message: 'Server error' });
