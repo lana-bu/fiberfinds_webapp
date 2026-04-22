@@ -50,8 +50,8 @@ router.get('/', async (req, res) => {
         // number of posts that match filter fields
         const totalPosts = await Post.countDocuments(filter);
 
-        // filter, skip and limit for pagnation, sort, and retrieve posts
-        const posts = await Post.find(filter).populate('userId', 'username').skip(offset).limit(limit).sort({createdAt: -1}); // display in descending order of date created
+        // filter, skip and limit for pagination, sort, and retrieve posts, display in descending order of date created
+        const posts = await Post.find(filter).populate('userId', 'username').skip(offset).limit(limit).sort({createdAt: -1});
 
         res.json({ page, limit, totalPosts, posts });
     } catch (err) {
@@ -63,9 +63,16 @@ router.get('/', async (req, res) => {
 // get all of the posts you (current user) created
 router.get('/your-posts', auth, async (req, res) => {
     try {
-        const posts = await Post.find({ userId: req.user.id }).populate('userId', 'username').sort({ createdAt: -1 }); // display in descending order of date created
-      
-        res.json({ posts });
+        const page = parseInt(req.query.page, 10) || 1; // page number user chose
+        const limit = 10; // display 10 posts per page
+        const offset = (page - 1) * limit; // starting point for posts
+
+        // number of posts that match filter fields
+        const totalPosts = await Post.countDocuments({ userId: req.user.id });
+
+        const posts = await Post.find({ userId: req.user.id }).populate('userId', 'username').skip(offset).limit(limit).sort({ createdAt: -1 }); // display in descending order of date created
+        
+        res.json({ page, limit, totalPosts, posts });
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ message: 'Server error' });

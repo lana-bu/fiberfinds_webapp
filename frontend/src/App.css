@@ -116,6 +116,11 @@ body {
     background-color: var(--accent-color);
 }
 
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .danger-btn {
     background-color: var(--danger-color);
     color: #ffffff;
@@ -425,8 +430,8 @@ body {
   padding: 1em 0;
 }
 
-/* pagnation */
-.pagnation {
+/* pagination */
+.pagination {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -435,7 +440,7 @@ body {
   padding: 1em 0;
 }
 
-.pagnation button {
+.pagination button {
   font-size: 0.8em;
 }
 
