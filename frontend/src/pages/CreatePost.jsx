@@ -13,8 +13,8 @@ function CreatePost() {
     if (!user) {
         return (
             <>
-                <h1>Create Post</h1>
-                <p>You must be <Link to="/login">logged in</Link> to create a post.</p>
+                <h1 className='content-header'>Create Post</h1>
+                <p className='centered'>You must be <Link to="/login">logged in</Link> to create a post.</p>
             </>
         );
     }

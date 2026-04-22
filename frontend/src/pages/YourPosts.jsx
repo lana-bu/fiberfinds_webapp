@@ -43,7 +43,7 @@ function YourPosts() {
         return (
             <>
                 <h1 className="content-header">Your Posts</h1>
-                <p>You must be <Link to="/login">logged in</Link> to view your posts.</p>
+                <p className='centered'>You must be <Link to="/login">logged in</Link> to view your posts.</p>
             </>
         );
     }

@@ -33,8 +33,8 @@ function EditPost() {
     if (!user) {
         return (
             <>
-                <h1>Edit Post</h1>
-                <p>You must be <Link to="/login">logged in</Link> to edit a post.</p>
+                <h1 className='content-header'>Edit Post</h1>
+                <p className='centered'>You must be <Link to="/login">logged in</Link> to edit a post.</p>
             </>
         );
     }

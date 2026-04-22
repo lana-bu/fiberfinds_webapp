@@ -361,6 +361,30 @@ body {
   font-size: 0.75em;
 }
 
+/* authentication form styling */
+.auth-form {
+  display: block;
+  margin: 0 auto;
+}
+
+/* links under form */
+.auth-links {
+    text-align: center;
+    margin-top: 3em;
+    color: #57315a;
+    font-size: 0.7em;
+}
+
+.auth-links a {
+    color: var(--accent-color);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
 /* search form styling */
 .search {
   padding: 2em 0;
@@ -912,5 +936,9 @@ body {
 
     .field-wide {
       grid-column: 1 / -1;
+    }
+
+    .auth-form {
+      max-width: 80%;
     }
 }

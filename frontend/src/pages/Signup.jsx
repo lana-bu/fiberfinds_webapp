@@ -11,14 +11,16 @@ function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
-    const [error, setError] = useState('');
+    const [fieldErrors, setFieldErrors] = useState({});
+    const [formError, setFormError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError('');
+        setFieldErrors({});
+        setFormError('');
 
         if (password !== passwordConfirm) {
-            setError('Passwords do not match');
+            setFieldErrors({ passwordConfirm: ['Passwords do not match'] });
             return;
         }
 
@@ -30,74 +32,74 @@ function Signup() {
             });
             navigate('/login');
         } catch (err) {
-            const data = err.response?.data;
-            if (data?.errors) {
-                const messages = Object.values(data.errors).flat();
-                setError(messages.join('. '));
+            if (err.response) {
+                const data = err.response.data;
+
+                if (data && data.errors) {
+                    setFieldErrors(data.errors);
+                } else if (data && data.message) {
+                    setFormError(data.message);
+                } else {
+                    setFormError('Signup failed');
+                }
             } else {
-                setError(data?.message || 'Signup failed');
+                setFormError('Signup failed');
             }
         }
     };
 
     return (
         <>
-            <h1>Sign Up</h1>
+            <h1 className="content-header">Sign Up</h1>
 
-            {error && <p>{error}</p>}
+            <form className='card auth-form' onSubmit={handleSubmit}>
+                {formError && <p className='form-errors'>{formError}</p>}
 
-            <div>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="username">Username:</label>
-                        <input
-                            id="username"
-                            type="text"
-                            placeholder="Create username..."
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="email">Email:</label>
-                        <input
-                            id="email"
-                            type="email"
-                            placeholder="Enter email..."
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="password">Password:</label>
-                        <input
-                            id="password"
-                            type="password"
-                            placeholder="Create password..."
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="passwordConfirm">Confirm Password:</label>
-                        <input
-                            id="passwordConfirm"
-                            type="password"
-                            placeholder="Confirm password..."
-                            value={passwordConfirm}
-                            onChange={(e) => setPasswordConfirm(e.target.value)}
-                        />
-                    </div>
+                <div className='field'>
+                    <label htmlFor="username">Username:</label>
+                    <input id="username" name="username" type="text" required placeholder="Create username..." value={username} onChange={(e) => setUsername(e.target.value)} />
+                    {fieldErrors.username && fieldErrors.username.map((msg, i) => (
+                        <p className='field-error' key={i}>{msg}</p>
+                    ))}
+                </div>
 
-                    <button type="submit">Create Account</button>
-                </form>
+                <div className='field'>
+                    <label htmlFor="email">Email:</label>
+                    <input id="email" name="email" type="email" required placeholder="Enter email..." value={email} onChange={(e) => setEmail(e.target.value)} />
+                    {fieldErrors.email && fieldErrors.email.map((msg, i) => (
+                        <p className='field-error' key={i}>{msg}</p>
+                    ))}
+                </div>
+
+                <div className='field'>
+                    <label htmlFor="password">Password:</label>
+                    <input id="password" name="password" type="password" required placeholder="Create password..." value={password} onChange={(e) => setPassword(e.target.value)} />
+                    {fieldErrors.password && fieldErrors.password.map((msg, i) => (
+                        <p className='field-error' key={i}>{msg}</p>
+                    ))}
+                </div>
+
+                <div className='field'>
+                    <label htmlFor="passwordConfirm">Confirm Password:</label>
+                    <input id="passwordConfirm" name="passwordConfirm" type="password" required placeholder="Confirm password..." value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} />
+                    {fieldErrors.passwordConfirm && fieldErrors.passwordConfirm.map((msg, i) => (
+                        <p className='field-error' key={i}>{msg}</p>
+                    ))}
+                </div>
+
+                <div className='card-actions'>
+                    <button className="btn" type="submit">Create Account</button>
+                </div>
+            </form>
+
+            <div className="auth-links">
+                <p>
+                    If you already have an account, log in <Link to="/login">here</Link>.
+                </p>
+                <p>
+                    (Or <Link to="/">browse posts as Guest</Link>)
+                </p>
             </div>
-
-            <p>
-                If you already have an account, log in <Link to="/login">here</Link>.
-                <br />
-                (Or <Link to="/">browse posts as Guest</Link>)
-            </p>
         </>
     );
 }
