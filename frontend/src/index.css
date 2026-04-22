@@ -10,21 +10,3 @@
 * {
   box-sizing: border-box;
 }
-
-/* input {
-  padding: 0.2em 0.4em;
-  font-weight: bold;
-  font-family: inherit;
-  border-radius: 6px;
-  border: 2px solid var(--primary-color);
-  color: var(--text-color);
-  background-color: var(--primary-color-translucent);
-}
-
-input:focus {
-  outline: 2px solid var(--secondary-color);
-}
-
-::placeholder {
-  color: var(--text-color-translucent);
-}  */
