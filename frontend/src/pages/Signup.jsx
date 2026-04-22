@@ -36,8 +36,10 @@ function Signup() {
                 const data = err.response.data;
 
                 if (data && data.errors) {
+                    // validation errors grouped by field
                     setFieldErrors(data.errors);
                 } else if (data && data.message) {
+                    // single error message
                     setFormError(data.message);
                 } else {
                     setFormError('Signup failed');
@@ -86,9 +88,9 @@ function Signup() {
                         <p className='field-error' key={i}>{msg}</p>
                     ))}
                 </div>
-
+                
                 <div className='card-actions'>
-                    <button className="btn" type="submit">Create Account</button>
+                <button className="btn" type="submit">Create Account</button>
                 </div>
             </form>
 
@@ -98,7 +100,7 @@ function Signup() {
                 </p>
                 <p>
                     (Or <Link to="/">browse posts as Guest</Link>)
-                </p>
+            </p>
             </div>
         </>
     );
