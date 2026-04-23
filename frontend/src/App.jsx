@@ -1,46 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-const url = import.meta.env.VITE_API_URL;
+import { Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext.jsx';
+import Header from './components/Header.jsx';
+import Navigation from './components/Navigation.jsx';
+import Footer from './components/Footer.jsx';
+import Home from './pages/Home.jsx';
+import About from './pages/About.jsx';
+import PostDetails from './pages/PostDetails.jsx';
+import Login from './pages/Login.jsx';
+import Signup from './pages/Signup.jsx';
+import YourPosts from './pages/YourPosts.jsx';
+import CreatePost from './pages/CreatePost.jsx';
+import EditPost from './pages/EditPost.jsx';
+import './App.css';
 
 function App() {
-  const [tasks, setTasks] = useState([]);
-  const [title, setTitle] = useState('');
-
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
-  const fetchTasks = async () => {
-    const res = await axios.get(`${url}/api/tasks`);
-    setTasks(res.data);
-  };
-
-  const addTask = async () => {
-    const res = await axios.post(`${url}/api/tasks`, { title });
-    setTasks([...tasks, res.data]);
-    setTitle('');
-  };
-
-  const deleteTask = async (id) => {
-    await axios.delete(`${url}/api/tasks/${id}`);
-    setTasks(tasks.filter(task => task._id !== id));
-  };
-
   return (
-    <div>
-      <h1>Task Manager</h1>
-      <input value={title} onChange={(e) => setTitle(e.target.value)} />
-      <button onClick={addTask}>Add</button>
-      <ul>
-        {tasks.map(task => (
-          <li key={task._id}>
-            {task.title}
-            <button onClick={() => deleteTask(task._id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <AuthProvider>
+      <Header />
+      <Navigation />
+      <main className='content-container'>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/post/:id" element={<PostDetails />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/your-posts" element={<YourPosts />} />
+          <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/edit-post/:id" element={<EditPost />} />
+        </Routes>
+      </main>
+      <Footer />
+    </AuthProvider>
   );
 }
 

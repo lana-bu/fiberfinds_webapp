@@ -16,9 +16,15 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  verified: {
+  verified: { // may be used later for sending password reset emails
     type: Boolean,
     required: true,
+  },
+  role: {
+    type: String,
+    enum: ['member', 'admin'],
+    required: true,
+    default: 'member',
   }
 });
 

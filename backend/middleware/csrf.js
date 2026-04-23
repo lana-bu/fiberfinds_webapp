@@ -19,8 +19,8 @@ function verifyCsrfToken(token) {
     return false;
   }
 
-  const tokenParts = token.split('.');
-  if (tokenParts.length !== 3) {
+  const tokenParts = token.split('.'); // break apart pieces of token
+  if (tokenParts.length !== 3) { // shuld be random, timestamp, and hmac section
     return false;
   }
 
@@ -39,14 +39,16 @@ function verifyCsrfToken(token) {
   return crypto.timingSafeEqual(Buffer.from(hmac, 'hex'), Buffer.from(expectedHmac, 'hex'));
 }
 
-// Sets a CSRF token cookie on every response if one isn't present or is expired
+// sets a CSRF token cookie on every response if one isn't present or is expired
 export function setCsrfToken(req, res, next) {
   const existing = req.cookies?.[CSRF_COOKIE_NAME];
+
   if (!existing || !verifyCsrfToken(existing)) {
     const token = generateCsrfToken();
+
     res.cookie(CSRF_COOKIE_NAME, token, {
       httpOnly: false, // frontend JS must read this to send it as a header
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === 'production', // not necessary to be secure for development
       sameSite: 'strict',
       maxAge: TOKEN_EXPIRY_MS,
       path: '/',
@@ -55,7 +57,7 @@ export function setCsrfToken(req, res, next) {
   next();
 }
 
-// Validates CSRF token on state-changing requests (POST, PUT, DELETE, PATCH)
+// validates CSRF token on state-changing requests (POST, PUT, DELETE, PATCH)
 export function validateCsrfToken(req, res, next) {
   if (['GET', 'HEAD', 'OPTIONS'].includes(req.method)) { // no user input taken
     return next();
