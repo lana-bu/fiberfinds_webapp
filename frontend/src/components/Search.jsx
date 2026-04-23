@@ -17,6 +17,7 @@ const Search = (props)=>{
     };
 
     const handleClear = () => {
+        // empty all queries
         setQ('');
         setType('');
         setSkill('');
@@ -30,6 +31,7 @@ const Search = (props)=>{
                     <IoSearch className='search-icon'/>
                     <input id="q-search" name="search" type="text" placeholder="Search posts..." value={q} onChange={(e) => setQ(e.target.value)} />
                 </div>
+
                 <div className='filters'>
                     <div className='field search-select'>
                         <label htmlFor="q-type">Art type: </label>
@@ -43,6 +45,7 @@ const Search = (props)=>{
                             <option value="other">Other</option>
                         </select>
                     </div>
+
                     <div className='field search-select'>
                         <label htmlFor="q-skill">Skill level: </label>
                         <select id="q-skill" name="skill-level" value={skill} onChange={(e) => setSkill(e.target.value)}>
@@ -53,6 +56,7 @@ const Search = (props)=>{
                         </select>
                     </div>
                 </div>
+                
                 <div className='card-actions'>
                     <button className="btn" type="submit">Search</button>
                     <button className="btn danger-btn" type="button" onClick={handleClear}>Clear</button>

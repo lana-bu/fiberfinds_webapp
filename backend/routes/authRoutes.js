@@ -8,7 +8,7 @@ import { User } from '../models/User.js';
 
 const router = Router();
 
-// Register User
+// register user
 router.post('/signup', registerUserRules, validate, async (req, res) => {
   try {    
     const { username, email, password } = req.body;
@@ -27,7 +27,7 @@ router.post('/signup', registerUserRules, validate, async (req, res) => {
       return res.status(400).json({ message: 'The email provided is already linked to an existing account' });
     }
 
-    const newUser = await User.create({ username, email, password, verified: false });
+    const newUser = await User.create({ username, email, password, verified: false }); // verification maybe implemented later for password reset emails
     res.status(201).json({ success: true, message: 'Account registered successfully'});
   } catch (err) {
     console.error(err.message);
@@ -35,7 +35,7 @@ router.post('/signup', registerUserRules, validate, async (req, res) => {
   }
 });
 
-// Login User
+// login user
 router.post('/login', async (req, res) => {
   const { usernameOrEmail, password } = req.body;
 
@@ -57,14 +57,14 @@ router.post('/login', async (req, res) => {
     }
 
     // generate JWT token to stay logged in
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '8h' }); // can make expire time shorter once refresh token implemented
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '8h' }); // can make expire time shorter if refresh token implemented later
     
     // store JWT token in cookie
     res.cookie('token', token, {
       httpOnly: true,  // prevents JavaScript access (XSS protection)
       secure: process.env.NODE_ENV === 'production',  // HTTPS only in production
       sameSite: 'strict',  // prevents CSRF
-      maxAge: 8 * 60 * 60 * 1000,  // 8 hours in milliseconds, matching the JWT expiry
+      maxAge: 8 * 60 * 60 * 1000,  // 8 hours in milliseconds to matching JWT expiration time
     });
 
     res.json({ message: 'Login successful', user: {id: user._id, username: user.username, role: user.role} });
@@ -78,9 +78,11 @@ router.post('/login', async (req, res) => {
 router.get('/me', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
+
     if (!user) {
       return res.status(401).json({ message: 'User not found' });
     }
+    
     res.json({ user: { id: user._id, username: user.username, role: user.role } });
   } catch (err) {
     console.error(err.message);

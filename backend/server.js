@@ -10,18 +10,24 @@ import postsRoutes from './routes/postsRoutes.js';
 
 const app = express();
 
+// establish connection to front end
 app.use(cors({
   origin: process.env.CLIENT_URL || 'http://localhost:5173',
   credentials: true,
 }));
-app.use(express.json()); // built-in body parser
-app.use(xss()); // sanitize all user inputs to prevent XSS
+// parse request body
+app.use(express.json());
+// sanitize all user inputs to prevent XSS
+app.use(xss());
 app.use(cookieParser());
-app.use(setCsrfToken); // set CSRF cookie on every response
-app.use('/uploads', express.static('uploads')); // serve uploaded files
-app.use('/api/auth', authRoutes); // no CSRF validation (login/signup)
-app.use('/api/posts', validateCsrfToken, postsRoutes); // CSRF validated
-// create about page route maybe?
+// set CSRF cookie on every response
+app.use(setCsrfToken);
+// serve uploaded files
+app.use('/uploads', express.static('uploads'));
+// no CSRF validation (login/signup/refresh check/logout)
+app.use('/api/auth', authRoutes);
+// CSRF validated
+app.use('/api/posts', validateCsrfToken, postsRoutes);
 
 const port = process.env.PORT || 3000;
 const uri = process.env.MONGO_URI;

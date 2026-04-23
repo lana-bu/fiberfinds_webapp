@@ -19,6 +19,7 @@ function PostForm({ initialData, onSubmit, submitLabel }) {
         setFieldErrors({});
         setFormError('');
 
+        // collect form input
         const formData = new FormData();
         formData.append('type', type);
         formData.append('title', title);
@@ -27,11 +28,11 @@ function PostForm({ initialData, onSubmit, submitLabel }) {
         formData.append('creator', creator);
         formData.append('uploadType', uploadType);
 
-        if (image) { // If image uploaded
+        if (image) { // if image uploaded
             formData.append('image', image);
         }
 
-        if (uploadType === 'link' || uploadType === 'both') { // If link provided
+        if (uploadType === 'link' || uploadType === 'both') { // if link provided
             formData.append('link', link);
         }
         if ((uploadType === 'file' || uploadType === 'both') && file) { // if file provided
@@ -61,12 +62,14 @@ function PostForm({ initialData, onSubmit, submitLabel }) {
 
     return (
         <form className='card post-form' onSubmit={handleSubmit}>
+            {/* display general errors at top */}
             {formError && <p className='form-errors'>{formError}</p>}
 
             <div className="post-form-grid">
                 <div className='field'>
                     <label htmlFor="title">Title*:</label>
                     <input id="title" name="title" type="text" required placeholder="Enter title..." value={title} onChange={(e) => setTitle(e.target.value)} />
+                    {/* display specific-to-field errors under field if they exists */}
                     {fieldErrors.title && fieldErrors.title.map((msg, i) => (
                         <p className='field-error' key={i}>{msg}</p>
                     ))}

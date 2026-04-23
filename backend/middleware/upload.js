@@ -7,15 +7,18 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const uploadsDir = path.join(__dirname, '..', 'uploads');
 
-// check that uploads directory exists, and create it if it doesn't
+// check that uploads directory exists, create it if it doesn't
 if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir);
 }
 
 const storage = multer.diskStorage({
+    // save file uploads in upload directory
     destination: function (req, file, cb) {
         cb(null, uploadsDir);
     },
+
+    // create new file name
     filename: function (req, file, cb) {
         const extension = path.extname(file.originalname);
         const name = path.basename(file.originalname, extension);
@@ -28,9 +31,9 @@ const fileFilter = (req, file, cb) => {
     const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
     const allowedFileTypes = ['application/pdf', 'text/plain'];
 
-    if (file.fieldname === 'image' && allowedImageTypes.includes(file.mimetype)) {
+    if (file.fieldname === 'image' && allowedImageTypes.includes(file.mimetype)) { // image is of valid file type
         cb(null, true);
-    } else if (file.fieldname === 'file' && allowedFileTypes.includes(file.mimetype)) {
+    } else if (file.fieldname === 'file' && allowedFileTypes.includes(file.mimetype)) { // pattern file is of valid file type
         cb(null, true);
     } else {
         cb(new Error('Invalid file type.'));

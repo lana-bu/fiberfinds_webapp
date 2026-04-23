@@ -8,6 +8,7 @@ function PostItem({ post, showActions, onDelete }) {
             <p className='card-tag'>{post.type} | {post.skill}</p>
             <h3 className='card-title'>{post.title}</h3>
             
+            {/* display image if post has one */}
             {post.image &&
                 <img className="card-image" src={`${url}/${post.image}`} alt={post.title} />
             }
@@ -19,6 +20,8 @@ function PostItem({ post, showActions, onDelete }) {
                 <Link className='btn-link' to={`/post/${post._id}`}>
                     <button className="btn">View</button>
                 </Link>
+            
+            {/* if viewing on Your Posts page, show action buttons */}
             {showActions && (
                 <>
                     <Link className='btn-link' to={`/edit-post/${post._id}`}>

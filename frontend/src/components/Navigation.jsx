@@ -13,11 +13,13 @@ const Navigation = () => {
 
   const handleLogout = async () => {
     await logout();
+    // route user to home page after logout
     navigate('/');
   };
 
 
-  if (user) {
+  if (user) { // if user is registered
+    // display username and logout button
     accountContent = (
       <>
         <div className="profile-container">
@@ -27,6 +29,7 @@ const Navigation = () => {
         <button className="btn" onClick={handleLogout}>Log Out</button>
       </>
     );
+    // display create post and your post links in nav menu
     userLinks = (
       <>
         <li>
@@ -37,7 +40,8 @@ const Navigation = () => {
         </li>
       </>
     );
-  } else {
+  } else { // if user is not registered
+    // display login button
     accountContent = (
       <Link className="btn-link" to="/login">
         <button className="btn">Log In</button>
@@ -45,6 +49,7 @@ const Navigation = () => {
     );
   }
 
+  // show or hide sidebar when user clicks hamburger menu button
   const toggleSidebar = () => {
         const sidebar = document.getElementById("nav-sidebar");
 

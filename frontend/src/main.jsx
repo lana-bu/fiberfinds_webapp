@@ -7,7 +7,7 @@ import App from './App.jsx'
 
 axios.defaults.withCredentials = true // to use JWT token cookie
 
-// Read the CSRF cookie and attach it as a header on every request
+// read CSRF cookie and attach it as a header on every request
 axios.interceptors.request.use((config) => {
   const csrfToken = document.cookie
     .split('; ')

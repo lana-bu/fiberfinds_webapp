@@ -10,7 +10,7 @@ import { User } from '../models/User.js';
 
 const router = Router()
 
-// convert absolute file path to relative URL path (e.g. "uploads/file.png")
+// convert absolute file path to relative URL path for uploads
 function toRelativePath(absolutePath) {
     return 'uploads/' + path.basename(absolutePath);
 }
@@ -87,15 +87,13 @@ router.post('/create-post', auth, uploadFields, createOrEditPostRules, validate,
         let image = null;
         let file = null;
         if (req.files) {
-            if (req.files.image && req.files.image[0]) {
+            if (req.files.image && req.files.image[0]) { // convert image string to file path instead of just name
                 image = toRelativePath(req.files.image[0].path);
             }
-            if (req.files.file && req.files.file[0]) {
+            if (req.files.file && req.files.file[0]) { // convert file string to file path instead of just name
                 file = toRelativePath(req.files.file[0].path);
             }
         }
-
-        // TODO validate input (make sure uploadType matches with link and file values)
 
         await Post.create({
             userId: req.user.id, 
@@ -127,7 +125,7 @@ router.post('/create-post', auth, uploadFields, createOrEditPostRules, validate,
     }
 });
 
-// get a specific post by ID
+// get a specific post by its ID
 router.get('/:id', async (req, res) => {
   try {
     const post = await Post.findById(req.params.id).populate('userId', 'username');
@@ -143,7 +141,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// edit a post by ID (owner or admin)
+// edit a post by its ID (owner or admin)
 router.put('/:id', auth, uploadFields, createOrEditPostRules, validate, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
