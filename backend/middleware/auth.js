@@ -5,10 +5,11 @@ function auth(req, res, next) {
   const [scheme, tokenFromHeader] = header.split(' ');
   const tokenFromCookie = req.cookies?.token;
 
+  let token;
   if (scheme === 'Bearer' && tokenFromHeader) { // for testing in Postman
-    const token = tokenFromHeader;
+    token = tokenFromHeader;
   } else { // standard method for website
-    const token = tokenFromCookie;
+    token = tokenFromCookie;
   }
 
   if (!token) {
@@ -20,10 +21,11 @@ function auth(req, res, next) {
     req.user = { id: decoded.id };
     next();
   } catch (err) {
+    let msg;
     if (err.name === 'TokenExpiredError') { // been over 8 hours since user logged in
-      const msg = 'Access token expired';
+      msg = 'Access token expired';
     } else { // potential malicious party
-      const msg = 'Invalid token';
+      msg = 'Invalid token';
     }
 
     return res.status(401).json({ message: msg });
